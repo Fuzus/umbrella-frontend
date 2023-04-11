@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="popup">
+        <h3>{{ titulo }}</h3>
+        <form>
+            <label for="m-codigoProduto">Código</label>
+            <input id="m-codigoProduto" type="text" name="m-codigoProduto" required [(ngModel)]="codigo"/>
+  
+            <label for="m-nomeProduto">Nome do Produto</label>
+            <input id="m-nomeProduto" type="text" name="m-nomeProduto" required [(ngModel)]="nome"/>
+
+            <label for="m-precoProduto">Preço</label>
+            <input id="m-precoProduto" type="text" name="m-precoProduto" required [(ngModel)]="preco"/>
+
+            <label for="m-quantidadeProduto">Quantidade</label>
+            <input id="m-quantidadeProduto" type="number" name="m-quantidadeProduto" required [(ngModel)]="quantidade"/>
+
+            <label for="m-situacao">Situação</label>
+            <select id="m-situacao" name="m-situacao" required [(ngModel)]="situacao">
+                <option value="">Selecione...</option>
+                <option value="true" >Ativo</option>
+                <option value="false">Inativo</option>
+            </select>
+
+            <label for="m-imagemProduto">Imagem do Produto</label>
+            <input id="m-imagemProduto" name="m-imagemProduto" type="file" accept="image/*" required>
+  
+            <button (click)="salvar()" id="btnSalvar">Salvar</button>
+          </form>
+    </div>
+</div>

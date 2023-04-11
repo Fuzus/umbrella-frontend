@@ -1,0 +1,10 @@
+#situacao {
+    height: 20px;
+    width: 20px;
+    margin-left: 20px;
+    pointer-events: none;
+}
+
+.material-symbols-outlined {
+    margin-left: 30px;
+}

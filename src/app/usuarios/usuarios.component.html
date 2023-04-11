@@ -1,0 +1,39 @@
+<!-- Main -->
+<section class="container-user">
+    <div class="user-container">
+
+        <div class="form-container">
+            <div class="header-cadastro">
+                <span>Cadastro de Funcionários</span>
+                <button routerLink="/usuarios/inserir" id="new" class="material-symbols-outlined">add</button>
+            </div>
+            <!-- 1 -->
+            <div class="divTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Cargo</th>
+                            <th>Situação</th>
+                            <th class="acao">Editar</th>
+                            <th class="acao">Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of usuarios">
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.nome }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>{{ usuario.cargo }}</td>
+                            <td><input id="check-situacao" type="checkbox" [checked]="usuario.situacao"></td>
+                            <td><button (click)="editarUsuario(usuario.id)"><span class="material-symbols-outlined">edit</span></button></td>
+                            <td><button (click)="excluirUsuario(usuario.id)"><span class="material-symbols-outlined">delete</span></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

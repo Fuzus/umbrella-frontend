@@ -1,0 +1,40 @@
+<section class="container-user">
+    <div class="user-container">
+        <!-- Titulo -->
+        <div class="form-container">
+            <div class="header-cadastro">
+                <span>Produtos</span>
+                <button (click)="incluirProduto()" id="new" class="material-symbols-outlined">add</button>
+            </div>
+            <!-- 1 -->
+            <div class="divTable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nome do Produto</th>
+                            <th>Preço</th>
+                            <th>Quantidade</th>
+                            <th>Imagem</th>
+                            <th>Situação</th>
+                            <th class="acao">Editar</th>
+                            <th class="acao">Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let produto of produtos">
+                            <td>{{ produto.codigo }}</td>
+                            <td>{{ produto.nome }}</td>
+                            <td>{{ produto.preco | currency:"BRL" }}</td>
+                            <td>{{ produto.quantidade }}</td>
+                            <td><img src="{{ produto.imagem }}" alt="{{ produto.nome }}" width="50px" height="50px"/></td>
+                            <td><input id="situacao" type="checkbox" [checked]="produto.situacao"></td>
+                            <td><button (click)="editarProduto(produto.codigo)"><span class="material-symbols-outlined">edit</span></button></td>
+                            <td><button (click)="excluirProduto(produto.codigo)"><span class="material-symbols-outlined">delete</span></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
