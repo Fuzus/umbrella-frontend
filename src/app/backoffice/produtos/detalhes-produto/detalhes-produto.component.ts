@@ -57,9 +57,9 @@ export class DetalhesProdutoComponent implements OnInit {
 
     if(this.produto) {
       this.produtoService.update(this.produto.codigo, novoProduto);
-      this.router.navigate(["produtos"]);
     } else {
       this.produtoService.insert(novoProduto);
     }
+    this.router.navigate(["backoffice/produtos"]);
   }
 }

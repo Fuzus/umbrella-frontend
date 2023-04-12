@@ -20,7 +20,7 @@ export class LoginComponent {
   login() {
     if(this.auth.login(this.email, this.senha)) {
       console.log("entro")
-      this.router.navigate(["produtos"]);
+      this.router.navigate(["backoffice"]);
     }
     console.log("nao entro")
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../usuario';
-import { UsuarioService } from '../services/usuario.service';
+import { Usuario } from 'src/app/usuario';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   editarUsuario(usuarioId:number) {
-    this.router.navigate([`usuarios/${usuarioId}`])
+    this.router.navigate([`backoffice/usuarios/${usuarioId}`])
   }
 
   excluirUsuario(usuarioId:number) {

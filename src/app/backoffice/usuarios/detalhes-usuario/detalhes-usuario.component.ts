@@ -59,7 +59,7 @@ export class DetalhesUsuarioComponent implements OnInit {
       this.usuarioService.insert(novoUsuario);
     }
 
-    this.router.navigate(["usuarios"]);
+    this.router.navigate(["backoffice/usuarios"]);
   }
 
 }

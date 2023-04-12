@@ -5,13 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { SideBarComponent } from './side-bar/side-bar.component';
 import { HeaderComponent } from './header/header.component';
+import { BackofficeComponent } from './backoffice/backoffice.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SideBarComponent,
     HeaderComponent
   ],
   imports: [

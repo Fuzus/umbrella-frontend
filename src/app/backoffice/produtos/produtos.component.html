@@ -19,6 +19,7 @@
                             <th>Situação</th>
                             <th class="acao">Editar</th>
                             <th class="acao">Excluir</th>
+                            <th class="acao">Visualizar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,6 +32,7 @@
                             <td><input id="situacao" type="checkbox" [checked]="produto.situacao"></td>
                             <td><button (click)="editarProduto(produto.codigo)"><span class="material-symbols-outlined">edit</span></button></td>
                             <td><button (click)="excluirProduto(produto.codigo)"><span class="material-symbols-outlined">delete</span></button></td>
+                            <td><button (click)="visualizarProduto(produto.codigo)"><span class="material-symbols-outlined">visibility</span></button></td>
                         </tr>
                     </tbody>
                 </table>

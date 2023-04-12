@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Produto, produtos } from '../produto';
-import { ProdutosService } from '../services/produtos.service';
+import { Produto } from 'src/app/produto';
+import { ProdutosService } from 'src/app/services/produtos.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,15 +22,19 @@ export class ProdutosComponent implements OnInit {
   }
 
   incluirProduto() {
-    this.router.navigate(["produtos/incluir"]);
+    this.router.navigate(["backoffice/produtos/incluir"]);
   }
 
   editarProduto(codigoProduto: number) {
-    this.router.navigate([`produtos/${codigoProduto}`]);
+    this.router.navigate([`backoffice/produtos/${codigoProduto}`]);
   }
 
   excluirProduto(codigoProduto:number) {
     this.produtos = this.produtosService.deletarProduto(codigoProduto);
+  }
+
+  visualizarProduto(codigoProduto: number) {
+    this.router.navigate([`client/produtos/${codigoProduto}`]);
   }
 
 }
