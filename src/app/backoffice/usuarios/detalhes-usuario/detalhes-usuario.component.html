@@ -5,8 +5,11 @@
             <label for="m-nome">Nome</label>
             <input id="m-nome" name="m-nome" type="text" required [(ngModel)]="nome" />
 
+            <label for="m-cpf">CPF (apenas numeros)</label>
+            <input id="m-cpf" name="m-cpf" type="text" [maxLength]="12" [minlength]="12" required [(ngModel)]="cpf" disabled="{{ usuario ? true : false }}"/>
+
             <label for="m-email">E-mail</label>
-            <input id="m-email" name="m-email" type="email" required [(ngModel)]="email" />
+            <input id="m-email" name="m-email" type="email" required [(ngModel)]="email" disabled="{{ usuario ? true : false }}"/>
 
             <label for="m-senha">Senha</label>
             <input id="m-senha" name="m-senha" type="password" required [(ngModel)]="senha" />

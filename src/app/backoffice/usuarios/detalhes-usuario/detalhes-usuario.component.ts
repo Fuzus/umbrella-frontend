@@ -12,6 +12,7 @@ export class DetalhesUsuarioComponent implements OnInit {
   titulo = "Adicionar Novo Usuario";
   usuario: Usuario | undefined;
   nome = "";
+  cpf = "";
   email = "";
   senha = "";
   confirmSenha = "";
@@ -43,6 +44,10 @@ export class DetalhesUsuarioComponent implements OnInit {
   }
 
   salvar() {
+    if(!this.validarCpf()) {
+      alert("Numero do CPF invalido");
+      return;
+    }
     const novoUsuario: Usuario = {
       id: 0,
       nome: this.nome,
@@ -60,6 +65,26 @@ export class DetalhesUsuarioComponent implements OnInit {
     }
 
     this.router.navigate(["backoffice/usuarios"]);
+  }
+
+  validarCpf(): boolean {
+    var soma = 0;
+    var resto;
+  if (this.cpf == "00000000000") return false;
+
+  for (let i=1; i<=9; i++) soma = soma + parseInt(this.cpf.substring(i-1, i)) * (11 - i);
+  resto = (soma * 10) % 11;
+
+    if ((resto == 10) || (resto == 11))  resto = 0;
+    if (resto != parseInt(this.cpf.substring(9, 10)) ) return false;
+
+  soma = 0;
+    for (let i = 1; i <= 10; i++) soma = soma + parseInt(this.cpf.substring(i-1, i)) * (12 - i);
+    resto = (soma * 10) % 11;
+
+    if ((resto == 10) || (resto == 11))  resto = 0;
+    if (resto != parseInt(this.cpf.substring(10, 11) ) ) return false;
+    return true;
   }
 
 }
