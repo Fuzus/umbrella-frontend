@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AccountService } from '../_services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
+  constructor(
+    private accountService: AccountService,
+    private router: Router
+  ) {}
 
   handleHeaderClicked(param: string) {
     const subNavOuter = document.querySelector(`#${param}`),
@@ -27,6 +34,10 @@ export class HeaderComponent {
 
     }
 
+  }
+
+  logout() {
+    this.accountService.logout();
   }
 
 }
