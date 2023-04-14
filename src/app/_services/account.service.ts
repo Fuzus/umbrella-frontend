@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../_models/login.response';
@@ -27,15 +27,21 @@ export class AccountService {
 
     login(email: string, password: string) {
         return this.http.post<AuthResponse>(`${environment.apiUrl}/api/Authenticate/login`, { email, password })
-            .pipe(map(response => {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                if(response.success){
-                  localStorage.setItem("access-token", response.data?.token!);
-                  return true;
-                }
-                //this.userSubject.next(user);
-                return false;
-            }));
+            .pipe(
+                map(response => {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    if (response.success) {
+                        localStorage.setItem("access-token", response.data?.token!);
+                        return true;
+                    }
+                    //this.userSubject.next(user);
+                    return false;
+                }),
+                catchError((err, httpErrorResponse) => {
+                    //Caso a requisição retorne 401 ou qualquer outro erro, o retorno do login é false
+                    return of(false);
+                })
+            );
     }
 
     logout() {
