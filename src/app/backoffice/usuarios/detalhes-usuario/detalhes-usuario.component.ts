@@ -35,8 +35,9 @@ export class DetalhesUsuarioComponent implements OnInit {
       console.log(this.usuario);
     }
 
-    if(this.usuario){
+    if (this.usuario) {
       this.nome = this.usuario.nome;
+      this.cpf = this.usuario.cpf;
       this.email = this.usuario.email;
       this.cargo = this.usuario.cargo;
       this.situacao = this.usuario.situacao;
@@ -44,20 +45,21 @@ export class DetalhesUsuarioComponent implements OnInit {
   }
 
   salvar() {
-    if(!this.validarCpf()) {
+    if (!this.validarCpf()) {
       alert("Numero do CPF invalido");
       return;
     }
     const novoUsuario: Usuario = {
       id: 0,
       nome: this.nome,
+      cpf: this.cpf,
       email: this.email,
       cargo: this.cargo,
       situacao: this.situacao,
       senha: this.senha
     }
 
-    if(this.usuario) {
+    if (this.usuario) {
       novoUsuario.id = this.usuario.id;
       this.usuarioService.update(this.usuario.id, novoUsuario);
     } else {
@@ -70,20 +72,20 @@ export class DetalhesUsuarioComponent implements OnInit {
   validarCpf(): boolean {
     var soma = 0;
     var resto;
-  if (this.cpf == "00000000000") return false;
+    if (this.cpf == "00000000000") return false;
 
-  for (let i=1; i<=9; i++) soma = soma + parseInt(this.cpf.substring(i-1, i)) * (11 - i);
-  resto = (soma * 10) % 11;
-
-    if ((resto == 10) || (resto == 11))  resto = 0;
-    if (resto != parseInt(this.cpf.substring(9, 10)) ) return false;
-
-  soma = 0;
-    for (let i = 1; i <= 10; i++) soma = soma + parseInt(this.cpf.substring(i-1, i)) * (12 - i);
+    for (let i = 1; i <= 9; i++) soma = soma + parseInt(this.cpf.substring(i - 1, i)) * (11 - i);
     resto = (soma * 10) % 11;
 
-    if ((resto == 10) || (resto == 11))  resto = 0;
-    if (resto != parseInt(this.cpf.substring(10, 11) ) ) return false;
+    if ((resto == 10) || (resto == 11)) resto = 0;
+    if (resto != parseInt(this.cpf.substring(9, 10))) return false;
+
+    soma = 0;
+    for (let i = 1; i <= 10; i++) soma = soma + parseInt(this.cpf.substring(i - 1, i)) * (12 - i);
+    resto = (soma * 10) % 11;
+
+    if ((resto == 10) || (resto == 11)) resto = 0;
+    if (resto != parseInt(this.cpf.substring(10, 11))) return false;
     return true;
   }
 
