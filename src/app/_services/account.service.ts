@@ -14,8 +14,6 @@ export class AccountService {
     private userSubject: BehaviorSubject<User | null>;
     public user: Observable<User | null>;
 
-    users: User[] = []
-
     constructor(
         private router: Router,
         private http: HttpClient
