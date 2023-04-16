@@ -49,14 +49,19 @@ export class DetalhesUsuarioComponent implements OnInit {
       alert("Numero do CPF invalido");
       return;
     }
+
+    if(this.senha !== this.confirmSenha) {
+      alert("As senhas não coincidem")
+      return;
+    }
+
     const novoUsuario: Usuario = {
       id: 0,
       nome: this.nome,
       cpf: this.cpf,
       email: this.email,
       cargo: this.cargo,
-      situacao: this.situacao,
-      senha: this.senha
+      situacao: this.situacao
     }
 
     if (this.usuario) {

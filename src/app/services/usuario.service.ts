@@ -34,7 +34,6 @@ export class UsuarioService {
       this.usuarios[index].email = usuario.email;
       this.usuarios[index].cargo = usuario.cargo;
       this.usuarios[index].situacao = usuario.situacao;
-      this.usuarios[index].senha = usuario.senha;
     }
   }
   

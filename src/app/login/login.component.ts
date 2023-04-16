@@ -15,12 +15,16 @@ export class LoginComponent {
   constructor(
     private authService: AccountService,
     private router: Router
-  ){}
+  ) { }
 
   login() {
     this.authService.login(this.email, this.senha).subscribe(
       (res: boolean) => {
-        res ? this.router.navigate(['backoffice']) : alert("Usuario ou senha incorretos");
+        if (res) {
+          this.router.navigate(['backoffice']);
+        } else {
+          alert("Usuario ou senha incorretos");
+        }
       }
     )
   }

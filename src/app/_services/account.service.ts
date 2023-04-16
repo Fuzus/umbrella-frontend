@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, IterableDiffers } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { User } from '../_models/user';
+import { User, UserRole } from '../_models/user';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../_models/login.response';
 
@@ -32,6 +32,8 @@ export class AccountService {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     if (response.success) {
                         localStorage.setItem("access-token", response.data?.token!);
+                        this.userSubject.next({ ...this.userSubject, token: response.data?.token })
+                        this.getRole()
                         return true;
                     }
                     //this.userSubject.next(user);
@@ -88,5 +90,63 @@ export class AccountService {
                 }
                 return x;
             }));
+    }
+
+    getRole() {
+        this.isAdmin().subscribe(
+            res => {
+                if (res) {
+                    console.log("isAdmin");
+                    this.userSubject.next({ ...this.userValue, role: UserRole.ADMIN });
+                }
+            });
+        
+        this.isRestocker().subscribe(
+            res => {
+                if(res) {
+                    console.log("isRestocker");
+                    this.userSubject.next({ ...this.userValue, role:UserRole.RESTOCKER });
+                }
+            }
+        )
+    }
+
+    isAdmin() {
+        return this.http.get<Response>(`${environment.apiUrl}/api/home/admin`)
+            .pipe(
+                map(response => {
+                    if (response.status == 200 || response.status == 204) {
+                        console.log("teste")
+                        return true;
+                    }
+                    console.log("testes faail")
+                    return false;
+                }),
+                catchError((err, httpErrorResponse) => {
+                    if(err.status == 200) {
+                        return of(true);
+                    }
+                    return of(false);
+                })
+            );
+    }
+
+    isRestocker() {
+        return this.http.get<Response>(`${environment.apiUrl}/api/home/restockers`)
+            .pipe(
+                map(response => {
+                    if (response.status == 200 || response.status == 204) {
+                        console.log("testes auth")
+                        return true;
+                    }
+                    return false;
+                }),
+                catchError((err, httpErrorResponse) => {
+                    if(err.status == 200) {
+                        return of(true);
+                    }
+                    return of(false);
+                })
+            );
     }
 }

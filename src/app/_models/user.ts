@@ -5,4 +5,11 @@ export class User {
   firstName?: string;
   lastName?: string;
   token?: string;
+  role?: UserRole;
+}
+
+export enum UserRole {
+  ADMIN,
+  RESTOCKER,
+  CLIENT
 }

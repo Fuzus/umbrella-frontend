@@ -11,12 +11,12 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(
         private router: Router,
         private accountService: AccountService
-    ){}
+    ) { }
 
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const currentUser = this.accountService.userValue;
-        if(currentUser && currentUser.token) {
+        if (currentUser && currentUser.token) {
             req = req.clone({
                 setHeaders: {
                     Authorization: `bearer ${currentUser.token}`
@@ -24,13 +24,14 @@ export class AuthInterceptor implements HttpInterceptor {
             });
         }
 
-        return next.handle(req).pipe( tap(() => {},
+        return next.handle(req).pipe(tap(() => { },
             (err: any) => {
-                if(err instanceof HttpErrorResponse) {
+                if (err instanceof HttpErrorResponse) {
                     if (err.status !== 401) {
                         return;
                     }
                     this.router.navigate(['login']);
-                }}));
+                }
+            }));
     }
 }
