@@ -3,7 +3,7 @@ import { Usuario } from 'src/app/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/_services/account.service';
-import { UserRole } from 'src/app/_models/user';
+import { User, UserRole } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-usuarios',
@@ -11,7 +11,7 @@ import { UserRole } from 'src/app/_models/user';
   styleUrls: ['./usuarios.component.css']
 })
 export class UsuariosComponent implements OnInit {
-  usuarios: Usuario[] | undefined;
+  usuarios: User[] = [];
 
   constructor(
     private usuarioService: UsuarioService,
@@ -20,7 +20,7 @@ export class UsuariosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usuarios = this.usuarioService.getAll();
+    this.accountService.getAll().subscribe(res => this.usuarios = res);
     if(this.accountService.userValue) {
       if(this.accountService.userValue.role != UserRole.ADMIN) {
         alert("Você não possui acesso a esta tela")
@@ -30,12 +30,12 @@ export class UsuariosComponent implements OnInit {
 
   }
 
-  editarUsuario(usuarioId:number) {
+  editarUsuario(usuarioId:string) {
     this.router.navigate([`backoffice/usuarios/${usuarioId}`])
   }
 
-  excluirUsuario(usuarioId:number) {
-    this.usuarios = this.usuarioService.delete(usuarioId);
+  excluirUsuario(usuarioId:string) {
+    //this.usuarios = this.usuarioService.delete(usuarioId);
   }
 
 }

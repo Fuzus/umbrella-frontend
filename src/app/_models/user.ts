@@ -1,11 +1,13 @@
 export class User {
   id?: string;
-  username?: string;
+  userName?: string;
   password?: string;
-  firstName?: string;
-  lastName?: string;
-  token?: string;
+  nome?: string;
+  cpf?: string;
   role?: UserRole;
+  isAdmin?: boolean;
+  token?:string;
+  lockoutEnabled?: boolean;
 }
 
 export enum UserRole {

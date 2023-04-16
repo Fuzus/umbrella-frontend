@@ -6,12 +6,15 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { User, UserRole } from '../_models/user';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../_models/login.response';
+import { UserResponse } from '../_models/user.response';
 
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
     private userSubject: BehaviorSubject<User | null>;
     public user: Observable<User | null>;
+
+    users: User[] = []
 
     constructor(
         private router: Router,
@@ -58,7 +61,11 @@ export class AccountService {
     }
 
     getAll() {
-        return this.http.get<User[]>(`${environment.apiUrl}/users`);
+        return this.http.get<UserResponse>(`${environment.apiUrl}/getUsers`).pipe(
+            map(res => {
+                return res.data;
+            })
+        )
     }
 
     getById(id: string) {

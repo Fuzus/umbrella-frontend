@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/usuario';
 
@@ -10,7 +12,7 @@ import { Usuario } from 'src/app/usuario';
 })
 export class DetalhesUsuarioComponent implements OnInit {
   titulo = "Adicionar Novo Usuario";
-  usuario: Usuario | undefined;
+  usuario: User | undefined;
   nome = "";
   cpf = "";
   email = "";
@@ -20,27 +22,26 @@ export class DetalhesUsuarioComponent implements OnInit {
   situacao = false;
 
   constructor(
-    private usuarioService: UsuarioService,
+    private accountService: AccountService,
     private actvatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     const routeParams = this.actvatedRoute.snapshot.paramMap;
-    const usuarioId = Number(routeParams.get("id"));
+    const usuarioId = routeParams.get("id");
 
-    if (usuarioId > 0) {
+    if (usuarioId) {
       this.titulo = "Editar dados do usuario"
-      this.usuario = this.usuarioService.getOne(usuarioId);
+      this.accountService.getById(usuarioId).subscribe(res => this.usuario = res);
       console.log(this.usuario);
     }
 
     if (this.usuario) {
-      this.nome = this.usuario.nome;
-      this.cpf = this.usuario.cpf;
-      this.email = this.usuario.email;
-      this.cargo = this.usuario.cargo;
-      this.situacao = this.usuario.situacao;
+      this.nome = this.usuario.nome ? this.usuario.nome : "";
+      this.cpf = this.usuario.cpf ? this.usuario.cpf : "";
+      this.email = this.usuario.userName ? this.usuario.userName : "";
+      this.cargo = this.usuario.isAdmin ? "admin" : "Estoquista";
     }
   }
 
@@ -50,25 +51,23 @@ export class DetalhesUsuarioComponent implements OnInit {
       return;
     }
 
-    if(this.senha !== this.confirmSenha) {
+    if(this.senha != "" && this.senha !== this.confirmSenha) {
       alert("As senhas não coincidem")
       return;
     }
 
-    const novoUsuario: Usuario = {
-      id: 0,
+    const novoUsuario: User = {
       nome: this.nome,
       cpf: this.cpf,
-      email: this.email,
-      cargo: this.cargo,
-      situacao: this.situacao
+      userName: this.email,
+      isAdmin: this.cargo == "admin",
     }
 
     if (this.usuario) {
       novoUsuario.id = this.usuario.id;
-      this.usuarioService.update(this.usuario.id, novoUsuario);
+      //this.usuarioService.update(this.usuario.id, novoUsuario);
     } else {
-      this.usuarioService.insert(novoUsuario);
+      //this.usuarioService.insert(novoUsuario);
     }
 
     this.router.navigate(["backoffice/usuarios"]);

@@ -23,11 +23,11 @@
                     <tbody>
                         <tr *ngFor="let usuario of usuarios">
                             <td>{{ usuario.nome }}</td>
-                            <td>{{ usuario.email }}</td>
-                            <td>{{ usuario.cargo }}</td>
-                            <td><input id="check-situacao" type="checkbox" [checked]="usuario.situacao"></td>
-                            <td><button (click)="editarUsuario(usuario.id)"><span class="material-symbols-outlined">edit</span></button></td>
-                            <td><button (click)="excluirUsuario(usuario.id)"><span class="material-symbols-outlined">delete</span></button></td>
+                            <td>{{ usuario.userName }}</td>
+                            <td>admin</td>
+                            <td><input id="check-situacao" type="checkbox" [checked]="!usuario.lockoutEnabled"></td>
+                            <td><button ><span class="material-symbols-outlined">edit</span></button></td>
+                            <td><button ><span class="material-symbols-outlined">delete</span></button></td>
                         </tr>
                     </tbody>
                 </table>
