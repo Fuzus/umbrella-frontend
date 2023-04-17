@@ -47,6 +47,10 @@ export class AccountService {
             );
     }
 
+    saveToken(token: string, isAdmin: boolean) {
+        this.userSubject.next({ ...this.userSubject, token: token, isAdmin: isAdmin })
+    }
+
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('access-token');
@@ -108,7 +112,8 @@ export class AccountService {
             res => {
                 if (res) {
                     console.log("isAdmin");
-                    this.userSubject.next({ ...this.userValue, role: UserRole.ADMIN });
+                    localStorage.setItem('isAdmin', "true");
+                    this.userSubject.next({ ...this.userValue, isAdmin: true });
                 }
             });
         
@@ -116,7 +121,7 @@ export class AccountService {
             res => {
                 if(res) {
                     console.log("isRestocker");
-                    this.userSubject.next({ ...this.userValue, role:UserRole.RESTOCKER });
+                    this.userSubject.next({ ...this.userValue, isAdmin: false });
                 }
             }
         )

@@ -17,24 +17,25 @@ export class UsuariosComponent implements OnInit {
     private usuarioService: UsuarioService,
     private router: Router,
     private accountService: AccountService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.accountService.getAll().subscribe(res => this.usuarios = res);
-    if(this.accountService.userValue) {
-      if(this.accountService.userValue.role != UserRole.ADMIN) {
-        alert("Você não possui acesso a esta tela")
-        this.router.navigate(['backoffice']);
+    if (this.accountService.userValue) {
+      if (this.accountService.userValue.isAdmin) {
+        this.accountService.getAll().subscribe(res => this.usuarios = res);
+        return;
       }
+      alert("Você não possui acesso a esta tela")
+      this.router.navigate(['backoffice']);
     }
 
   }
 
-  editarUsuario(usuarioId:string) {
+  editarUsuario(usuarioId: string) {
     this.router.navigate([`backoffice/usuarios/${usuarioId}`])
   }
 
-  excluirUsuario(usuarioId:string) {
+  excluirUsuario(usuarioId: string) {
     //this.usuarios = this.usuarioService.delete(usuarioId);
   }
 

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AccountService } from './_services/account.service';
+import { UserRole } from './_models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +10,16 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate {
   
   constructor(
-    private router: Router
+    private router: Router,
+    private accountService: AccountService
   ){}
 
   isLoggedIn() {
-    return !!localStorage.getItem('access-token');
+    const token = localStorage.getItem('access-token');
+    const role = !!localStorage.getItem('isAdmin');
+    if (token)
+      this.accountService.saveToken(token, role);
+    return !!token;
   }
   
   canActivate(

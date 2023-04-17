@@ -4,7 +4,6 @@ export class User {
   password?: string;
   nome?: string;
   cpf?: string;
-  role?: UserRole;
   isAdmin?: boolean;
   token?:string;
   lockoutEnabled?: boolean;
