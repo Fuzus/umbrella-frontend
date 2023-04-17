@@ -58,6 +58,9 @@ export class AccountService {
         return this.http.post(`${environment.apiUrl}/users/register`, user);
     }
 
+    /**
+     * @returns Retorna todos os usuario presentes no banco de dados
+     */
     getAll() {
         return this.http.get<UserResponse>(`${environment.apiUrl}/getUsers`).pipe(
             map(res => {
@@ -97,6 +100,9 @@ export class AccountService {
             }));
     }
 
+    /**
+     * @description Setta o grupo em que o usuario pertence
+     */
     getRole() {
         this.isAdmin().subscribe(
             res => {
@@ -116,6 +122,10 @@ export class AccountService {
         )
     }
 
+    /**
+     * @description Chama o endpoint "/api/home/admin"
+     * @returns Retorna se o usuario logado é um admin
+     */
     isAdmin() {
         return this.http.get<Response>(`${environment.apiUrl}/api/home/admin`)
             .pipe(
@@ -136,6 +146,10 @@ export class AccountService {
             );
     }
 
+    /**
+     * @description Chama o endpoint "/api/home/restockers"
+     * @returns Retorna se o usuario logado é um estoquista
+     */
     isRestocker() {
         return this.http.get<Response>(`${environment.apiUrl}/api/home/restockers`)
             .pipe(
