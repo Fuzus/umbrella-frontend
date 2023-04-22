@@ -17,7 +17,6 @@
                             <th>Cargo</th>
                             <th>Situação</th>
                             <th class="acao">Editar</th>
-                            <th class="acao">Excluir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,7 +26,6 @@
                             <td>{{ usuario.roles }}</td>
                             <td><input id="check-situacao" type="checkbox" [checked]="!usuario.lockoutEnabled"></td>
                             <td><button (click)="editarUsuario(usuario.id)"><span class="material-symbols-outlined">edit</span></button></td>
-                            <td><button ><span class="material-symbols-outlined">delete</span></button></td>
                         </tr>
                     </tbody>
                 </table>

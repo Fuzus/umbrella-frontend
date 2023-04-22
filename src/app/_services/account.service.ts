@@ -30,7 +30,7 @@ export class AccountService {
         return this.http.post<AuthResponse>(`${environment.apiUrl}/api/Authenticate/login`, { email, password })
             .pipe(
                 map(response => {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    // Salva os dados do usuario no localStorage do navegador para manter a sessão ativa mesmo após refresh da pagina
                     if (response.success) {
                         localStorage.setItem("access-token", response.data?.token!);
                         this.userSubject.next({ ...this.userSubject, token: response.data?.token })
@@ -58,6 +58,11 @@ export class AccountService {
         //this.router.navigate(['/account/login']);
     }
 
+    /**
+     * @description Faz chamada da api para criar um novo usuario
+     * @param user 
+     * @returns retorna dados padrão da api (success; message; data)
+     */
     register(user: User) {
         return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/register`, user).pipe(
             map(res => {
@@ -77,6 +82,11 @@ export class AccountService {
         )
     }
 
+    /**
+     * @description busca chama a api para buscar usuario passado o id
+     * @param id 
+     * @returns retorna os dados do usuario que a api mandou
+     */
     getById(id: string) {
         return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/getUser?ID=${id}`).pipe(
             map(res => {
@@ -85,21 +95,15 @@ export class AccountService {
         );
     }
 
+    /**
+     * @description realiza a chamada da api para atualização dos dados do usuário
+     * @param params 
+     * @returns dados padrão da api (success; message; data)
+     */
     update(params: any) {
         return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/update`, params).pipe(
             map(res => res)
         )
-    }
-
-    delete(id: string) {
-        return this.http.delete(`${environment.apiUrl}/users/${id}`)
-            .pipe(map(x => {
-                // auto logout if the logged in user deleted their own record
-                if (id == this.userValue?.id) {
-                    this.logout();
-                }
-                return x;
-            }));
     }
 
     /**
@@ -109,7 +113,6 @@ export class AccountService {
         this.isAdmin().subscribe(
             res => {
                 if (res) {
-                    console.log("isAdmin");
                     localStorage.setItem('isAdmin', "true");
                     this.userSubject.next({ ...this.userValue, isAdmin: true });
                 }
@@ -118,7 +121,6 @@ export class AccountService {
         this.isRestocker().subscribe(
             res => {
                 if(res) {
-                    console.log("isRestocker");
                     this.userSubject.next({ ...this.userValue, isAdmin: false });
                 }
             }
@@ -134,10 +136,8 @@ export class AccountService {
             .pipe(
                 map(response => {
                     if (response.status == 200 || response.status == 204) {
-                        console.log("teste")
                         return true;
                     }
-                    console.log("testes faail")
                     return false;
                 }),
                 catchError((err, httpErrorResponse) => {
@@ -158,7 +158,6 @@ export class AccountService {
             .pipe(
                 map(response => {
                     if (response.status == 200 || response.status == 204) {
-                        console.log("testes auth")
                         return true;
                     }
                     return false;
