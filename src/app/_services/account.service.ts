@@ -59,7 +59,11 @@ export class AccountService {
     }
 
     register(user: User) {
-        return this.http.post(`${environment.apiUrl}/users/register`, user);
+        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/register`, user).pipe(
+            map(res => {
+                return res;
+            })
+        );
     }
 
     /**
@@ -81,20 +85,10 @@ export class AccountService {
         );
     }
 
-    update(id: string, params: any) {
-        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
-            .pipe(map(x => {
-                // update stored user if the logged in user updated their own record
-                if (id == this.userValue?.id) {
-                    // update local storage
-                    const user = { ...this.userValue, ...params };
-                    localStorage.setItem('user', JSON.stringify(user));
-
-                    // publish updated user to subscribers
-                    this.userSubject.next(user);
-                }
-                return x;
-            }));
+    update(params: any) {
+        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/update`, params).pipe(
+            map(res => res)
+        )
     }
 
     delete(id: string) {
