@@ -32,8 +32,46 @@ export class UsuariosComponent implements OnInit {
     this.router.navigate([`backoffice/usuarios/${usuarioId}`])
   }
 
-  excluirUsuario(usuarioId: string) {
-    //this.usuarios = this.usuarioService.delete(usuarioId);
+  checkValue(usuario: User) {
+    const checkbox = document.getElementById(
+      `check-situacao-${usuario.id}`,
+    ) as HTMLInputElement | null;
+
+    if (confirm("tem certeza?")) {
+      const params = {
+        email: usuario.userName
+      }
+      if (checkbox) {
+        if (!usuario.lockoutEnabled) {
+          this.accountService.deactivateUser(params).subscribe(
+            res => {
+              if (res.success) {
+                usuario.lockoutEnabled = true;
+                checkbox.value = "false"
+              }
+            }
+          );
+
+        } else {
+          this.accountService.activateUser(params).subscribe(
+            res => {
+              if (res.success) {
+                usuario.lockoutEnabled = false;
+                checkbox.value = "true"
+              }
+            }
+          );
+        }
+      }
+    } else {
+      if(checkbox){
+        if(checkbox.checked == false){
+          checkbox.checked = true;
+        } else {
+          checkbox.checked = false;
+        }
+      }
+    }
   }
 
 }

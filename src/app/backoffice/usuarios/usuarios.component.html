@@ -24,7 +24,7 @@
                             <td>{{ usuario.nome }}</td>
                             <td>{{ usuario.userName }}</td>
                             <td>{{ usuario.roles }}</td>
-                            <td><input id="check-situacao" type="checkbox" [checked]="!usuario.lockoutEnabled"></td>
+                            <td><input class="check-situacao" id="check-situacao-{{usuario.id}}" type="checkbox" [checked]="!usuario.lockoutEnabled" (click)="checkValue(usuario)"></td>
                             <td><button (click)="editarUsuario(usuario.id)"><span class="material-symbols-outlined">edit</span></button></td>
                         </tr>
                     </tbody>

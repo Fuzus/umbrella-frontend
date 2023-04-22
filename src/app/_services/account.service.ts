@@ -117,10 +117,10 @@ export class AccountService {
                     this.userSubject.next({ ...this.userValue, isAdmin: true });
                 }
             });
-        
+
         this.isRestocker().subscribe(
             res => {
-                if(res) {
+                if (res) {
                     this.userSubject.next({ ...this.userValue, isAdmin: false });
                 }
             }
@@ -141,7 +141,7 @@ export class AccountService {
                     return false;
                 }),
                 catchError((err, httpErrorResponse) => {
-                    if(err.status == 200) {
+                    if (err.status == 200) {
                         return of(true);
                     }
                     return of(false);
@@ -163,11 +163,23 @@ export class AccountService {
                     return false;
                 }),
                 catchError((err, httpErrorResponse) => {
-                    if(err.status == 200) {
+                    if (err.status == 200) {
                         return of(true);
                     }
                     return of(false);
                 })
             );
+    }
+
+    activateUser(params: any) {
+        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/api/authenticate/active`, params).pipe(
+            map(res => res)
+        )
+    }
+
+    deactivateUser(params: any) {
+        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/api/authenticate/deactive`, params).pipe(
+            map(res => res)
+        )
     }
 }
