@@ -49,8 +49,9 @@ export class DetalhesUsuarioComponent implements OnInit {
       this.accountService.getById(usuarioId).subscribe(res => {
         if (res) {
           this.form.controls.nome.setValue(res.nome ? res.nome : "");
-          this.form.controls.cpf.setValue(res.cpf ? res.cpf : "");
+          this.form.controls.cpf.setValue(res.cpf ? String(res.cpf) : "");
           this.form.controls.email.setValue(res.userName ? res.userName : "");
+          this.form.controls.email.disable({onlySelf: true});
           this.form.controls.cargo.setValue(res.roles ? res.roles[0].toLowerCase() : "");
           this.form.controls.situacao.setValue(res.lockoutEnabled ? !res.lockoutEnabled : true);
         }
