@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { User, UserRole } from '../_models/user';
+import { User } from '../_models/user';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../_models/login.response';
-import { UserResponse } from '../_models/user.response';
+import { ApiResponse } from '../_models/api.response';
 
 
 @Injectable({ providedIn: 'root' })
@@ -66,7 +66,7 @@ export class AccountService {
      * @returns Retorna todos os usuario presentes no banco de dados
      */
     getAll() {
-        return this.http.get<UserResponse>(`${environment.apiUrl}/getUsers`).pipe(
+        return this.http.get<ApiResponse<User[]>>(`${environment.apiUrl}/getUsers`).pipe(
             map(res => {
                 return res.data;
             })
@@ -74,7 +74,11 @@ export class AccountService {
     }
 
     getById(id: string) {
-        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
+        return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/getUser?ID=${id}`).pipe(
+            map(res => {
+                return res.data;
+            })
+        );
     }
 
     update(id: string, params: any) {

@@ -7,10 +7,5 @@ export class User {
   isAdmin?: boolean;
   token?:string;
   lockoutEnabled?: boolean;
-}
-
-export enum UserRole {
-  ADMIN,
-  RESTOCKER,
-  CLIENT
+  roles?: string[]
 }

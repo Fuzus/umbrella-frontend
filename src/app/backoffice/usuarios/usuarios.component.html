@@ -24,9 +24,9 @@
                         <tr *ngFor="let usuario of usuarios">
                             <td>{{ usuario.nome }}</td>
                             <td>{{ usuario.userName }}</td>
-                            <td>admin</td>
+                            <td>{{ usuario.roles }}</td>
                             <td><input id="check-situacao" type="checkbox" [checked]="!usuario.lockoutEnabled"></td>
-                            <td><button ><span class="material-symbols-outlined">edit</span></button></td>
+                            <td><button (click)="editarUsuario(usuario.id)"><span class="material-symbols-outlined">edit</span></button></td>
                             <td><button ><span class="material-symbols-outlined">delete</span></button></td>
                         </tr>
                     </tbody>

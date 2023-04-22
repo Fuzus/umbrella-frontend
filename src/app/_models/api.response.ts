@@ -1,7 +1,7 @@
 import { User } from "./user";
 
-export interface UserResponse {
+export interface ApiResponse<T> {
     success: boolean;
     message: string;
-    data: User[]
+    data: T
 }
