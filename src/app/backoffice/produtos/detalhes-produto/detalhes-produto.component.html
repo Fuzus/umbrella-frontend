@@ -2,29 +2,35 @@
     <div class="popup">
         <h3>{{ titulo }}</h3>
         <form>
-            <label for="m-codigoProduto">Código</label>
-            <input id="m-codigoProduto" type="text" name="m-codigoProduto" required [(ngModel)]="codigo"/>
-  
             <label for="m-nomeProduto">Nome do Produto</label>
             <input id="m-nomeProduto" type="text" name="m-nomeProduto" required [(ngModel)]="nome"/>
 
-            <label for="m-precoProduto">Preço</label>
-            <input id="m-precoProduto" type="text" name="m-precoProduto" required [(ngModel)]="preco"/>
-
-            <label for="m-quantidadeProduto">Quantidade</label>
-            <input id="m-quantidadeProduto" type="number" name="m-quantidadeProduto" required [(ngModel)]="quantidade"/>
-
-            <label for="m-situacao">Situação</label>
-            <select id="m-situacao" name="m-situacao" required [(ngModel)]="situacao">
-                <option value="">Selecione...</option>
-                <option value="true" >Ativo</option>
-                <option value="false">Inativo</option>
+            <label for="m-avaliacao">Avaliacao</label>
+            <select id="m-nomeProduto" type="text" name="m-nomeProduto" required>
+                <option value="">Selecione</option>
+                <option value="0.5">0.5</option>
+                <option value="1">1</option>
+                <option value="1.5">1.5</option>
+                <option value="2">2</option>
+                <option value="2.5">2.5</option>
+                <option value="3">3</option>
+                <option value="3.5">3.5</option>
+                <option value="4">4</option>
+                <option value="4.5">4.5</option>
+                <option value="5">5</option>
             </select>
 
+            <label for="m-precoProduto">Preço</label>
+            <input id="m-precoProduto" type="tex" name="m-precoProduto" placeholder="00,00" required [(ngModel)]="preco"/>
+
+            <label for="m-quantidadeProduto">Quantidade</label>
+            <input id="m-quantidadeProduto" type="number" name="m-quantidadeProduto" placeholder="0" required [(ngModel)]="quantidade"/>
+
             <label for="m-imagemProduto">Imagem do Produto</label>
-            <input id="m-imagemProduto" name="m-imagemProduto" type="file" accept="image/*" required>
+            <input id="m-imagemProduto" name="m-imagemProduto" type="file" accept="image/*" multiple required>
   
             <button (click)="salvar()" id="btnSalvar">Salvar</button>
+            <button (click)="cancelar()" class="cancelar">Cancelar</button>
           </form>
     </div>
 </div>

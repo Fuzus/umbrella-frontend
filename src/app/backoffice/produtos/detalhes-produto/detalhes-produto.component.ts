@@ -62,4 +62,8 @@ export class DetalhesProdutoComponent implements OnInit {
     }
     this.router.navigate(["backoffice/produtos"]);
   }
+
+  cancelar() {
+    this.router.navigate(["backoffice/produtos"]);
+  }
 }
