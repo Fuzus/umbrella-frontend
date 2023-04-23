@@ -1,12 +1,12 @@
 <div class="container">
     <div class="popup">
         <h3>{{ titulo }}</h3>
-        <form>
+        <form [formGroup]="form">
             <label for="m-nomeProduto">Nome do Produto</label>
-            <input id="m-nomeProduto" type="text" name="m-nomeProduto" required [(ngModel)]="nome"/>
+            <input id="m-nomeProduto" type="text" name="m-nomeProduto" formControlName="name"/>
 
             <label for="m-avaliacao">Avaliacao</label>
-            <select id="m-nomeProduto" type="text" name="m-nomeProduto" required>
+            <select id="m-nomeProduto" type="text" name="m-nomeProduto" formControlName="rating">
                 <option value="">Selecione</option>
                 <option value="0.5">0.5</option>
                 <option value="1">1</option>
@@ -21,13 +21,13 @@
             </select>
 
             <label for="m-precoProduto">Preço</label>
-            <input id="m-precoProduto" type="tex" name="m-precoProduto" placeholder="00,00" required [(ngModel)]="preco"/>
+            <input id="m-precoProduto" type="tex" name="m-precoProduto" placeholder="00,00" formControlName="price"/>
 
             <label for="m-quantidadeProduto">Quantidade</label>
-            <input id="m-quantidadeProduto" type="number" name="m-quantidadeProduto" placeholder="0" required [(ngModel)]="quantidade"/>
+            <input id="m-quantidadeProduto" type="number" name="m-quantidadeProduto" placeholder="0" formControlName="unit"/>
 
             <label for="m-imagemProduto">Imagem do Produto</label>
-            <input id="m-imagemProduto" name="m-imagemProduto" type="file" accept="image/*" multiple required>
+            <input id="m-imagemProduto" name="m-imagemProduto" type="file" accept="image/*" multiple >
   
             <button (click)="salvar()" id="btnSalvar">Salvar</button>
             <button (click)="cancelar()" class="cancelar">Cancelar</button>

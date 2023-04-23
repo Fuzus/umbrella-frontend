@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Produto } from 'src/app/produto';
 import { ProdutosService } from 'src/app/services/produtos.service';
@@ -11,16 +12,31 @@ import { ProdutosService } from 'src/app/services/produtos.service';
 export class DetalhesProdutoComponent implements OnInit {
 
   produto: Produto | undefined;
-  codigo = "";
-  nome = "";
-  preco = "";
-  quantidade = "";
-  situacao = false;
-  imagem = "";
+  
+  form = this.fb.group({
+    name: ["", [
+      Validators.required,
+      Validators.maxLength(200)
+    ]],
+    
+    rating: ["", [
+      Validators.required
+    ]],
+
+    price: ["", [
+      Validators.required
+    ]],
+
+    unit: ["", [
+      Validators.required
+    ]],
+
+  })
 
   titulo = "Cadastrar produto"
 
   constructor(
+    private fb: FormBuilder,
     private produtoService: ProdutosService,
     private activateRouter: ActivatedRoute,
     private router: Router
@@ -36,31 +52,17 @@ export class DetalhesProdutoComponent implements OnInit {
     }
 
     if(this.produto) {
-      this.codigo = String(this.produto.codigo);
-      this.nome = this.produto.nome;
-      this.preco = String(this.produto.preco);
-      this.quantidade = String(this.produto.quantidade);
-      this.situacao = this.produto.situacao;
-      this.imagem = this.produto.imagem;
+      // this.codigo = String(this.produto.codigo);
+      // this.nome = this.produto.nome;
+      // this.preco = String(this.produto.preco);
+      // this.quantidade = String(this.produto.quantidade);
+      // this.situacao = this.produto.situacao;
+      // this.imagem = this.produto.imagem;
     }
   }
 
   salvar() {
-    const novoProduto: Produto = {
-      codigo: Number(this.codigo),
-      nome: this.nome,
-      preco: Number(this.preco.replace(".", "").replace(",", ".")),
-      quantidade: Number(this.quantidade),
-      situacao: this.situacao,
-      imagem: this.imagem
-    };
-
-    if(this.produto) {
-      this.produtoService.update(this.produto.codigo, novoProduto);
-    } else {
-      this.produtoService.insert(novoProduto);
-    }
-    this.router.navigate(["backoffice/produtos"]);
+    
   }
 
   cancelar() {
