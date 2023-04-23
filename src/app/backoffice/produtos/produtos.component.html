@@ -15,7 +15,6 @@
                             <th>Nome do Produto</th>
                             <th>Preço</th>
                             <th>Quantidade</th>
-                            <th>Imagem</th>
                             <th>Situação</th>
                             <th class="acao">Editar</th>
                             <th class="acao">Excluir</th>
@@ -24,15 +23,14 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let produto of produtos">
-                            <td>{{ produto.codigo }}</td>
-                            <td>{{ produto.nome }}</td>
-                            <td>{{ produto.preco | currency:"BRL" }}</td>
-                            <td>{{ produto.quantidade }}</td>
-                            <td><img src="{{ produto.imagem }}" alt="{{ produto.nome }}" width="50px" height="50px"/></td>
-                            <td><input id="situacao" type="checkbox" [checked]="produto.situacao"></td>
-                            <td><button (click)="editarProduto(produto.codigo)"><span class="material-symbols-outlined">edit</span></button></td>
-                            <td><button (click)="excluirProduto(produto.codigo)"><span class="material-symbols-outlined">delete</span></button></td>
-                            <td><button (click)="visualizarProduto(produto.codigo)"><span class="material-symbols-outlined">visibility</span></button></td>
+                            <td>{{ produto.id }}</td>
+                            <td>{{ produto.name }}</td>
+                            <td>{{ produto.price | currency:"BRL" }}</td>
+                            <td>{{ produto.unit }}</td>
+                            <td><input id="situacao" type="checkbox" [checked]="produto.active"></td>
+                            <td><button (click)="editarProduto(produto.id)"><span class="material-symbols-outlined">edit</span></button></td>
+                            <td><button (click)="excluirProduto(produto.id)"><span class="material-symbols-outlined">delete</span></button></td>
+                            <td><button (click)="visualizarProduto(produto.id)"><span class="material-symbols-outlined">visibility</span></button></td>
                         </tr>
                     </tbody>
                 </table>
