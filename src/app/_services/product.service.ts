@@ -19,4 +19,10 @@ export class ProductService {
       map( res => res.data )
     )
   }
+
+  insert(produto: Product) {
+    return this.http.post<ApiResponse<Product>>(`${environment.apiUrl}/addProduct`, produto).pipe(
+      map( res => res )
+    )
+  } 
 }

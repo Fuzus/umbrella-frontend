@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from 'src/app/_models/product';
+import { ProductService } from 'src/app/_services/product.service';
 import { Produto } from 'src/app/produto';
 import { ProdutosService } from 'src/app/services/produtos.service';
 
@@ -23,6 +25,11 @@ export class DetalhesProdutoComponent implements OnInit {
       Validators.required
     ]],
 
+    description: ["", [
+      Validators.required,
+      Validators.maxLength(2000)
+    ]],
+
     price: ["", [
       Validators.required
     ]],
@@ -38,6 +45,7 @@ export class DetalhesProdutoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private produtoService: ProdutosService,
+    private productService: ProductService,
     private activateRouter: ActivatedRoute,
     private router: Router
   ) {}
@@ -62,7 +70,24 @@ export class DetalhesProdutoComponent implements OnInit {
   }
 
   salvar() {
-    
+    const produto: Product = {
+      name: this.form.controls.name.value ? this.form.controls.name.value : "",
+      description: this.form.controls.description.value? this.form.controls.description.value : "",
+      rating: this.form.controls.rating.value? Number(this.form.controls.rating.value) : 0,
+      price: this.form.controls.price.value? Number(this.form.controls.price.value.replace(".", "").replace(",", ".")) : 0.00,
+      unit: this.form.controls.unit.value ? Number(this.form.controls.unit.value) : 0
+    }
+
+    if(this.produto) {
+
+    } else {
+      this.productService.insert(produto).subscribe(res => {
+        if(res.success) {
+          alert(`Produto ${res.data.name} adicionado com sucesso`);
+          this.router.navigate(["backoffice/produtos"]);
+        }
+      })
+    }
   }
 
   cancelar() {

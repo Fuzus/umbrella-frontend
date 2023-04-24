@@ -27,7 +27,7 @@
                             <td>{{ produto.name }}</td>
                             <td>{{ produto.price | currency:"BRL" }}</td>
                             <td>{{ produto.unit }}</td>
-                            <td><input id="situacao" type="checkbox" [checked]="produto.active"></td>
+                            <td><input id="situacao" type="checkbox" [checked]="produto.active" (click)="alterarFlagItemAtivo(produto)"></td>
                             <td><button (click)="editarProduto(produto.id)"><span class="material-symbols-outlined">edit</span></button></td>
                             <td><button (click)="excluirProduto(produto.id)"><span class="material-symbols-outlined">delete</span></button></td>
                             <td><button (click)="visualizarProduto(produto.id)"><span class="material-symbols-outlined">visibility</span></button></td>

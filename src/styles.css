@@ -572,6 +572,20 @@ tbody tr td.acao {
     border-right: none;
 }
 
+.popup textarea {
+    width: 100%;
+    min-height: 40px;
+    resize: none;
+    position: relative;
+    outline: none;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
 .popup button {
     background-color: var(--vermelho);
     color: var(--branco);

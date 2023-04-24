@@ -4,8 +4,8 @@ export interface Product {
     price: number;
     unit: number;
     rating: number;
-    id: string;
-    created: Date;
-    updated: Date | null;
-    active: boolean;
+    id?: string;
+    created?: Date;
+    updated?: Date | null;
+    active?: boolean;
 }

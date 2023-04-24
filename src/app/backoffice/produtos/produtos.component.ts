@@ -28,16 +28,22 @@ export class ProdutosComponent implements OnInit {
     this.router.navigate(["backoffice/produtos/incluir"]);
   }
 
-  editarProduto(codigoProduto: string) {
+  editarProduto(codigoProduto: string | undefined) {
     this.router.navigate([`backoffice/produtos/${codigoProduto}`]);
   }
 
-  excluirProduto(codigoProduto:string) {
+  excluirProduto(codigoProduto:string | undefined) {
     //this.produtos = this.produtosService.deletarProduto(codigoProduto);
   }
 
-  visualizarProduto(codigoProduto: string) {
+  visualizarProduto(codigoProduto: string | undefined) {
     this.router.navigate([`client/produtos/${codigoProduto}`]);
+  }
+
+  alterarFlagItemAtivo(produto: Product) {
+    /**
+     * @todo: Criar metodo que vai alterar a flag de ativo do produto
+     */
   }
 
 }
