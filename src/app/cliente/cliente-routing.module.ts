@@ -5,7 +5,8 @@ import { DetalhesProdutoComponent } from './detalhes-produto/detalhes-produto.co
 
 const routes: Routes = [
   { path: '', component: ClienteComponent },
-  { path: 'produtos/:id', component:DetalhesProdutoComponent }
+  { path: 'produtos/:id', component:DetalhesProdutoComponent },
+  { path: 'detalhes-usuario', loadChildren: () => import('./detalhes-usuario/detalhes-usuario.module').then(m => m.DetalhesUsuarioModule) }
 ];
 
 @NgModule({

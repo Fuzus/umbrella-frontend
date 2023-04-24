@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/_models/product';
 import { ProductService } from 'src/app/_services/product.service';
 import { Produto } from 'src/app/produto';
-import { ProdutosService } from 'src/app/services/produtos.service';
 
 @Component({
   selector: 'app-detalhes-produto',
@@ -44,7 +43,6 @@ export class DetalhesProdutoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private produtoService: ProdutosService,
     private productService: ProductService,
     private activateRouter: ActivatedRoute,
     private router: Router
@@ -56,7 +54,7 @@ export class DetalhesProdutoComponent implements OnInit {
 
     if(codigoProduto > 0) {
       this.titulo = "Alterar dados do produto"
-      this.produto = this.produtoService.getOne(codigoProduto);
+      //this.produto = this.produtoService.getOne(codigoProduto);
     }
 
     if(this.produto) {
