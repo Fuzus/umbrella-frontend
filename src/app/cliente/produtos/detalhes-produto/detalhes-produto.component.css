@@ -9,8 +9,8 @@
 }
 
 .product__container img {
-    width: 250px;
-    height: 250px;
+    width: 500px;
+    height: 500px;
 }
 
 .product__name {
@@ -57,7 +57,7 @@ input[type=number] {
 }
 
 button {
-    background-color: rgb(117, 17, 17);
+    background-color: var(--vermelho);
     border: none;
     border-radius: 15px;
     padding: 10px;
