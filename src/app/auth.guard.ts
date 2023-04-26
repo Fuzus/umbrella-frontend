@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
 
   isLoggedIn() {
     const token = localStorage.getItem('access-token');
-    const role = !!localStorage.getItem('isAdmin');
+    const role = localStorage.getItem("isAdmin") == "true";
     if (token)
       this.accountService.saveToken(token, role);
     return !!token;

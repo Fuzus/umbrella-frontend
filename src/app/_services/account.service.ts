@@ -121,6 +121,7 @@ export class AccountService {
         this.isRestocker().subscribe(
             res => {
                 if (res) {
+                    localStorage.setItem('isAdmin', "false");
                     this.userSubject.next({ ...this.userValue, isAdmin: false });
                 }
             }

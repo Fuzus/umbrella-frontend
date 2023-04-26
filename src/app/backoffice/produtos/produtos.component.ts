@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Produto } from 'src/app/produto';
-import { ProdutosService } from 'src/app/services/produtos.service';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/_services/product.service';
 import { Product } from 'src/app/_models/product';
+import { AccountService } from 'src/app/_services/account.service';
 
 @Component({
   selector: 'app-produtos',
@@ -16,9 +15,9 @@ export class ProdutosComponent implements OnInit {
 
   constructor(
     private prodcutService: ProductService,
-    private produtosService: ProdutosService,
+    public accountService: AccountService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.prodcutService.getAll().subscribe(res => this.produtos = res)
@@ -32,7 +31,7 @@ export class ProdutosComponent implements OnInit {
     this.router.navigate([`backoffice/produtos/${codigoProduto}`]);
   }
 
-  excluirProduto(codigoProduto:string | undefined) {
+  excluirProduto(codigoProduto: string | undefined) {
     //this.produtos = this.produtosService.deletarProduto(codigoProduto);
   }
 
@@ -41,9 +40,28 @@ export class ProdutosComponent implements OnInit {
   }
 
   alterarFlagItemAtivo(produto: Product) {
-    /**
-     * @todo: Criar metodo que vai alterar a flag de ativo do produto
-     */
-  }
+    const checkbox = document.getElementById(
+      `situacao-${produto.id}`,
+    ) as HTMLInputElement | null;
 
+    if (confirm("Tem certeza?")) {
+      produto.active = !produto.active;
+      if (checkbox) {
+        this.prodcutService.update(produto).subscribe(res => {
+          if (res.success) {
+            checkbox.value = String(res.data.active);
+          }
+        })
+      }
+    } else {
+      if (checkbox) {
+        if (checkbox.checked == false) {
+          checkbox.checked = true;
+        } else {
+          checkbox.checked = false;
+        }
+      }
+
+    }
+  }
 }

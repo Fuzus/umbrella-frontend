@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/_models/product';
+import { AccountService } from 'src/app/_services/account.service';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
@@ -43,6 +44,7 @@ export class DetalhesProdutoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private productService: ProductService,
+    private accountService: AccountService,
     private activateRouter: ActivatedRoute,
     private router: Router
   ) {}
@@ -50,6 +52,13 @@ export class DetalhesProdutoComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.activateRouter.snapshot.paramMap;
     const codigoProduto = routeParams.get('id');
+
+    if(!this.accountService.userValue?.isAdmin){
+      this.form.controls.name.disable();
+      this.form.controls.rating.disable();
+      this.form.controls.description.disable();
+      this.form.controls.price.disable();
+    }
 
     if(codigoProduto) {
       this.titulo = "Alterar dados do produto"
