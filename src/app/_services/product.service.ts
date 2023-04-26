@@ -20,6 +20,12 @@ export class ProductService {
     )
   }
 
+  getAllCliente() {
+    return this.http.get<ApiResponse<Product[]>>(`${environment.apiUrl}/getProductsUser`).pipe(
+      map( res => res.data )
+    )
+  }
+
   insert(produto: Product) {
     return this.http.post<ApiResponse<Product>>(`${environment.apiUrl}/addProduct`, produto).pipe(
       map( res => res )
