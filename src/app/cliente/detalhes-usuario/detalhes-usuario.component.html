@@ -2,13 +2,13 @@
     <h2>Dados do usuario</h2>
     <form>
         <label for="m-name">Nome </label>
-        <input type="text" id="m-name" name="m-name" value="Matheus">
+        <input type="text" id="m-name" name="m-name" [value]="this.user?.nome">
 
         <label for="m-dtNascimeto">Data de Nascimento </label>
         <input type="date">
 
         <div class="radio-genero">
-            <label for="m-input">Genero</label>
+            <label for="m-input">Genero: </label>
             <input type="text" hidden>
 
             <input type="radio" name="m-genero" id="masc" value="masculino">

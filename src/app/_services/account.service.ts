@@ -183,4 +183,10 @@ export class AccountService {
             map(res => res)
         )
     }
+
+    getUserData() {
+        return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/getUserInfo`).pipe(
+            map(res => res.data)
+        )
+    }
 }
