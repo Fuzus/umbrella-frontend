@@ -2,16 +2,16 @@
  <header class="header">
     <div class="inner">
         <a class="logo" routerLink="cliente"></a>
-        <button routerLink="backoffice/produtos">
+        <button *ngIf="this.accountService.userValue?.token" routerLink="backoffice/produtos">
             <span class="material-symbols-outlined"> inventory </span>
             <span>Produtos</span>
         </button>
         <!-- Menu 2 -->
-        <button routerLink="backoffice/usuarios">
+        <button *ngIf="this.accountService.userValue?.token" routerLink="backoffice/usuarios">
             <span class="material-symbols-outlined"> badge </span>
             <span>Usuarios</span>
         </button>
-        <nav class="nav-bar">
+        <nav *ngIf="this.accountService.userValue?.token" class="nav-bar">
             <a href="#"><span class="material-symbols-outlined">shopping_cart</span></a>
             <a href="/cliente/detalhes-usuario"><span class="material-symbols-outlined">person</span></a>
             <a href="/logout" (click)="logout()"><span class="material-symbols-outlined"> logout </span></a>
