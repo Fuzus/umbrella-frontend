@@ -21,7 +21,7 @@ export class LoginComponent {
     this.authService.login(this.email, this.senha).subscribe(
       (res: boolean) => {
         if (res) {
-          this.router.navigate(['backoffice']);
+          this.router.navigate(['cliente']);
         } else {
           alert("Usuario ou senha incorretos");
         }

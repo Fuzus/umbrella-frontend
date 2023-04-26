@@ -37,7 +37,7 @@ export class ProdutosComponent implements OnInit {
   }
 
   visualizarProduto(codigoProduto: string | undefined) {
-    this.router.navigate([`client/produtos/${codigoProduto}`]);
+    this.router.navigate([`cliente/produtos/${codigoProduto}`]);
   }
 
   alterarFlagItemAtivo(produto: Product) {
