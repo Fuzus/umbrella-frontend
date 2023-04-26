@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/_models/product';
 import { ProductService } from 'src/app/_services/product.service';
-import { Produto } from 'src/app/produto';
 
 @Component({
   selector: 'app-detalhes-produto',
@@ -12,7 +11,7 @@ import { Produto } from 'src/app/produto';
 })
 export class DetalhesProdutoComponent implements OnInit {
 
-  produto: Produto | undefined;
+  produto: Product | undefined;
   
   form = this.fb.group({
     name: ["", [
@@ -50,20 +49,18 @@ export class DetalhesProdutoComponent implements OnInit {
 
   ngOnInit(): void {
     const routeParams = this.activateRouter.snapshot.paramMap;
-    const codigoProduto = Number(routeParams.get('id'));
+    const codigoProduto = routeParams.get('id');
 
-    if(codigoProduto > 0) {
+    if(codigoProduto) {
       this.titulo = "Alterar dados do produto"
-      //this.produto = this.produtoService.getOne(codigoProduto);
-    }
-
-    if(this.produto) {
-      // this.codigo = String(this.produto.codigo);
-      // this.nome = this.produto.nome;
-      // this.preco = String(this.produto.preco);
-      // this.quantidade = String(this.produto.quantidade);
-      // this.situacao = this.produto.situacao;
-      // this.imagem = this.produto.imagem;
+      this.productService.getOne(codigoProduto).subscribe(res => {
+        this.produto = res;
+        this.form.controls.name.setValue(res.name);
+        this.form.controls.rating.setValue(String(res.rating));
+        this.form.controls.description.setValue(res.description);
+        this.form.controls.price.setValue(String(res.price));
+        this.form.controls.unit.setValue(String(res.unit));
+      })
     }
   }
 

@@ -16,9 +16,10 @@ export class ProdutosService {
     return this.produtos;
   }
 
-  getOne(codigo: number): Produto | undefined {
+  getOne(codigo: string | null): Produto | undefined {
+    if (codigo == null) {return undefined}
     const produto = produtos.find((x) => {
-      return x.codigo == codigo ? x : null
+      return x.codigo == Number(codigo) ? x : null
     });
     return produto;
   }

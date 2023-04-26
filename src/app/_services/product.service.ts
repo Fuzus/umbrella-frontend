@@ -25,4 +25,10 @@ export class ProductService {
       map( res => res )
     )
   } 
+
+  getOne(id: string) {
+    return this.http.get<ApiResponse<Product>>(`${environment.apiUrl}/getProductById?id=${id}`).pipe(
+      map( res => res.data )
+    )
+  }
 }
