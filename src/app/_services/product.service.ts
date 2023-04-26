@@ -31,4 +31,10 @@ export class ProductService {
       map( res => res.data )
     )
   }
+
+  update(product:Product) {
+    return this.http.put<ApiResponse<Product>>(`${environment.apiUrl}/updateProduct`, product).pipe(
+      map(res => res)
+    )
+  }
 }

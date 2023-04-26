@@ -74,7 +74,14 @@ export class DetalhesProdutoComponent implements OnInit {
     }
 
     if(this.produto) {
-
+      produto.id = this.produto.id;
+      produto.active = this.produto.active;
+      this.productService.update(produto).subscribe(res => {
+        if(res.success) {
+          alert(`Produto ${res.data.name} alterado com sucesso`);
+          this.router.navigate(["backoffice/produtos"]);
+        }
+      })
     } else {
       this.productService.insert(produto).subscribe(res => {
         if(res.success) {
