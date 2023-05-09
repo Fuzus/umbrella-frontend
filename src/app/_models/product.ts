@@ -9,3 +9,7 @@ export interface Product {
     updated?: Date | null;
     active?: boolean;
 }
+
+export interface ProductCart extends Product {
+    quantity: number;
+}

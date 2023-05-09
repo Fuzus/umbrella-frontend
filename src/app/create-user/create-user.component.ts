@@ -31,7 +31,15 @@ export class CreateUserComponent implements OnInit{
   }
 
   inserirEndereco() {
-    this.router.navigate(['endereco'])
+    this.router.navigate(['endereco']);
+  }
+
+  salvar() {
+    this.router.navigate(['login']);
+  }
+
+  cancelar() {
+    this.router.navigate(['login']);
   }
 
 }
