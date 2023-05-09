@@ -24,7 +24,7 @@ export class DetalhesUsuarioComponent implements OnInit{
   }
 
   inserirEndereco() {
-    this.router.navigate(["cliente/detalhes-usuario/endereco"]);
+    this.router.navigate(["endereco"]);
   }
 
   deletarEndereco(id: string | undefined) {

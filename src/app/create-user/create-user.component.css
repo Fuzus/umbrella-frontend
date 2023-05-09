@@ -1,0 +1,10 @@
+.radio-genero {
+    margin: 0%;
+    display: flex;
+    position: absolute;
+    align-items: baseline;
+}
+
+.header-cadastro{
+    margin-top: 35px;
+}

@@ -2,6 +2,10 @@
     <div class="popup">
         <h3>Cadastro de endereço</h3>
         <form [formGroup]="form">
+
+            <label for="m-cep">CEP</label>
+            <input id="m-cep" name="m-cep" type="text" formControlName="zipCode" (change)="search()">
+
             <label for="m-rua">Nome da Rua/Av</label>
             <input id="m-rua" name="m-rua" type="text" formControlName="address" />
 
@@ -11,8 +15,11 @@
             <label for="m-bairro">Bairro</label>
             <input id="m-bairro" name="m-bairro" type="email" formControlName="district" />
 
-            <label for="m-cep">CEP</label>
-            <input id="m-cep" name="m-cep" type="text" formControlName="zipCode" />
+            <label for="m-tipo">Tipo</label>
+            <select name="m-tipo" id="m-tipo" formControlName="type">
+                <option value="Entrega">Entrega</option>
+                <option value="Faturamento">Faturamento</option>
+            </select>
 
             <button (click)="salvar()" id="btnSalvar">Salvar</button>
         </form>

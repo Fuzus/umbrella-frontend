@@ -1,7 +1,8 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Address, enderecos } from 'src/app/_models/address';
+import { AddressService } from '../_services/address.service';
 
 @Component({
   selector: 'app-endereco',
@@ -14,13 +15,23 @@ export class EnderecoComponent {
     address: [""],
     houseNumber: [""],
     district: [""],
-    zipCode: [""]
+    zipCode: [""],
+    type: ["Entrega"]
   });
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private location: Location,
+    private addressService: AddressService
   ){}
+
+  search() {
+    this.addressService.seachCep(this.form.controls.zipCode.value? this.form.controls.zipCode.value: "").subscribe(res => {
+      this.form.controls.zipCode.setValue(res.cep)
+      this.form.controls.address.setValue(res.logradouro)
+      this.form.controls.district.setValue(res.bairro)
+    })
+  }
 
   salvar() {
     const address: Address = {
@@ -29,9 +40,10 @@ export class EnderecoComponent {
       houseNumber: this.form.controls.houseNumber.value? Number(this.form.controls.houseNumber.value) : 0,
       district: this.form.controls.district.value? this.form.controls.district.value : "",
       zipCode: this.form.controls.zipCode.value? this.form.controls.zipCode.value :  "",
+      type: this.form.controls.type.value? this.form.controls.type.value : undefined,
       default: false
     }
     enderecos.push(address);
-    this.router.navigate(["cliente/detalhes-usuario"]);
+    this.location.back()
   }
 }

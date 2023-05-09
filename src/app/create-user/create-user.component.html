@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="popup">
+        <h3>Registrar-se</h3>
+        <form [formGroup]="form">
+            <label for="m-nome">Nome</label>
+            <input type="text" name="m-nome" id="m-nome" formControlName="name" />
+
+            <label for="m-email">email</label>
+            <input id="m-email" type="text" name="m-email" formControlName="email" />
+
+            <label for="m-password">Senha</label>
+            <input id="m-password" type="password" name="m-password" formControlName="password" />
+
+            <label for="m-confirm-password">Confirmar Senha</label>
+            <input id="m-confirm-password" type="password" name="m-confirm-password"
+                formControlName="confirmPassword" />
+
+            <label for="m-cpf">CPF</label>
+            <input id="m-cpf" name="m-cpf" formControlName="cpf" />
+
+            <label for="m-nascimento">data de Nascimento</label>
+            <input id="m-nascimento" type="date" name="m-nascimento" placeholder="" formControlName="birth" />
+
+            <div class="radio-genero">
+                <label for="m-input">Genero: </label>
+                <input type="text" hidden>
+
+                <input type="radio" name="m-genero" id="masc" value="masculino">
+                <label for="masc">Masculino</label>
+
+                <input type="radio" name="m-genero" id="fem" value="feminino">
+                <label for="fem">feminino</label>
+
+                <input type="radio" name="m-genero" id="outro" value="outro">
+                <label for="outro">Outro</label>
+            </div>
+
+            <div class="header-cadastro">
+                <span>Endereço</span>
+                <a (click)="inserirEndereco()" class="material-symbols-outlined" id="new">add</a>
+            </div>
+            <table>
+                <thead>
+                    <th>Tipo</th>
+                    <th>endereco</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let endereco of enderecos">
+                        <td>{{ endereco.type }}</td>
+                        <td><p>{{ endereco.address }}, {{ endereco.houseNumber }} <br> {{ endereco.district }} <br> {{ endereco.zipCode }}</p></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <!-- 
+            <button (click)="salvar()" id="btnSalvar">Salvar</button>
+            <button (click)="cancelar()" class="cancelar">Cancelar</button> 
+            -->
+        </form>
+    </div>
+</div>
