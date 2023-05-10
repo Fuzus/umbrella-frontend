@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '../_models/api.response';
-import { Product } from '../_models/product';
+import { Product, ProductCart } from '../_models/product';
 import { environment } from 'src/environments/environment.development';
 import { map } from 'rxjs';
 
@@ -42,5 +42,22 @@ export class ProductService {
     return this.http.put<ApiResponse<Product>>(`${environment.apiUrl}/updateProduct`, product).pipe(
       map(res => res)
     )
+  }
+
+  buy(products: ProductCart[]) {
+    var test = true;
+    products.forEach(x => {
+      if (x.quantity > x.unit) {
+        test = false;
+        return;
+      }
+      x.unit -= x.quantity;
+      this.updateUnit(x).subscribe(res => test = res);
+    });
+    return test;
+  }
+
+  updateUnit(product: Product){
+    return this.http.put<ApiResponse<Product>>(`${environment.apiUrl}/updateProductUnit`, product).pipe(map(res => res.success));
   }
 }

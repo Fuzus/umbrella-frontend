@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductCart } from 'src/app/_models/product';
+import { Product, ProductCart } from 'src/app/_models/product';
 import { CartService } from 'src/app/_services/cart.service';
+import { ProductService } from 'src/app/_services/product.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,6 +16,7 @@ export class CartComponent {
 
   constructor(
     private carrinhoService: CartService,
+    private productService: ProductService,
     private router: Router
   ) { }
 
@@ -33,8 +35,13 @@ export class CartComponent {
   }
 
   comprar() {
-    alert("Parabéns! você finalizou a sua Compra");
-    this.carrinhoService.limparCarrinho();
-    this.router.navigate(["cliente"])
+    if (this.productService.buy(this.itensCarrinho)) {
+      alert("Parabéns! você finalizou a sua Compra");
+      this.carrinhoService.limparCarrinho();
+      this.router.navigate(["cliente"])
+    } else {
+      alert("Erro ao realizar a compra")
+    }
+
   }
 }
