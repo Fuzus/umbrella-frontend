@@ -4,6 +4,17 @@
     margin: 20px 0;
 }
 
+.product-image-list {
+    list-style-type: none;
+}
+
+.product-image-list img{
+    max-width:70px;
+    max-height:50px;
+    width: auto;
+    height: auto;
+}
+
 .product-image__container {
     align-self: center;
 }

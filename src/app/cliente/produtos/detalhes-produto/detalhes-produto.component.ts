@@ -40,6 +40,14 @@ export class DetalhesProdutoComponent implements OnInit{
       quantity: this.quantidade
     }
     this.cartService.adicionarAoCarrinho(product);
+    alert("Produto Adicionado ao Carrinho");
+  }
+
+  changeImage(image: string) {
+    const img = document.querySelector(".product-image__container img") as HTMLImageElement | null;
+    if (img) {
+      img.src = image;
+    }
   }
 
 }
