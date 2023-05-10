@@ -1,18 +1,22 @@
-<h2 class="cart__title">Carrinho</h2>
-<div *ngIf="itensCarrinho.length > 0; else semProduto">
-    <ul>
-        <li *ngFor="let itemCarrinho of itensCarrinho">
-            <img src="https://www.latercera.com/resizer/hEjow2UdFbe4hwUoavCHluhI-N8=/900x600/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/MRZ2PMD27ZEVFNHZDFS4NRHBN4.jpg" alt="">
-            <p>{{ itemCarrinho.name }}</p>
-            <p>Preco: {{ itemCarrinho.price | currency: "BRL" }}</p>
-            <label>
-                Quantidade: 
-                <input type="number" [(ngModel)]="itemCarrinho.quantity" (change)="calcularTotal()">
-            </label>
-            <button (click)="removerProdutoCarrinho(itemCarrinho.id)" class="remove-button"><span class="material-symbols-outlined">delete</span></button>
-        </li>
-    </ul>
-    <h2 class="cart__total">Total: {{ total | currency: "BRL" }}</h2>
-    <button class="buy-button" (click)="comprar()">Comprar</button>
-</div>
+<section>
+    <h2 class="cart__title">Carrinho</h2>
+    <div class="cart__list" *ngIf="itensCarrinho.length > 0; else semProduto">
+        <ul>
+            <li *ngFor="let itemCarrinho of itensCarrinho">
+                <img src="https://www.latercera.com/resizer/hEjow2UdFbe4hwUoavCHluhI-N8=/900x600/smart/arc-anglerfish-arc2-prod-copesa.s3.amazonaws.com/public/MRZ2PMD27ZEVFNHZDFS4NRHBN4.jpg"
+                    alt="">
+                <h4>{{ itemCarrinho.name }}</h4>
+                <p>Preco: {{ itemCarrinho.price | currency: "BRL" }}</p>
+                <label>
+                    Quantidade:
+                    <input type="number" [(ngModel)]="itemCarrinho.quantity" (change)="calcularTotal()">
+                </label>
+                <button (click)="removerProdutoCarrinho(itemCarrinho.id)" class="remove-button"><span
+                        class="material-symbols-outlined">delete</span></button>
+            </li>
+        </ul>
+        <h2 class="cart__total">Total: {{ total | currency: "BRL" }}</h2>
+        <button class="buy-button" (click)="comprar()">Comprar</button>
+    </div>
+</section>
 <ng-template #semProduto>Nenhum produto foi adicionado ao carrinho</ng-template>

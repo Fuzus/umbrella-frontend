@@ -35,6 +35,6 @@ export class CartComponent {
   comprar() {
     alert("Parabéns! você finalizou a sua Compra");
     this.carrinhoService.limparCarrinho();
-    this.router.navigate(["produtos"])
+    this.router.navigate(["cliente"])
   }
 }
