@@ -26,8 +26,8 @@ export class ProductService {
     )
   }
 
-  insert(produto: Product) {
-    return this.http.post<ApiResponse<Product>>(`${environment.apiUrl}/addProduct`, produto).pipe(
+  insert(form: any) {
+    return this.http.post<ApiResponse<Product>>(`${environment.apiUrl}/addProduct`, form).pipe(
       map( res => res )
     )
   } 
@@ -38,8 +38,8 @@ export class ProductService {
     )
   }
 
-  update(product:Product) {
-    return this.http.put<ApiResponse<Product>>(`${environment.apiUrl}/updateProduct`, product).pipe(
+  update(form:any) {
+    return this.http.put<ApiResponse<Product>>(`${environment.apiUrl}/updateProduct`, form).pipe(
       map(res => res)
     )
   }

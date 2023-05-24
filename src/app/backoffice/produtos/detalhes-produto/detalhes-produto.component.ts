@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/_models/product';
 import { AccountService } from 'src/app/_services/account.service';
@@ -13,6 +13,8 @@ import { ProductService } from 'src/app/_services/product.service';
 export class DetalhesProdutoComponent implements OnInit {
 
   produto: Product | undefined;
+  arquivo: any;
+  arquivos: any;
   
   form = this.fb.group({
     name: ["", [
@@ -37,6 +39,9 @@ export class DetalhesProdutoComponent implements OnInit {
       Validators.required
     ]],
 
+    cover: new FormControl('', []),
+
+    images: [""]
   })
 
   titulo = "Cadastrar produto"
@@ -60,7 +65,7 @@ export class DetalhesProdutoComponent implements OnInit {
       this.form.controls.price.disable();
     }
 
-    if(codigoProduto) {
+    if(codigoProduto && codigoProduto != "incluir") {
       this.titulo = "Alterar dados do produto"
       this.productService.getOne(codigoProduto).subscribe(res => {
         this.produto = res;
@@ -73,15 +78,52 @@ export class DetalhesProdutoComponent implements OnInit {
     }
   }
 
+  onFileChange(event: any){
+    if(event.target.files.length > 0){
+      const file = event.target.files[0];
+      this.arquivo =  file;
+    }
+  }
+
+  onFilesChange(event:any){
+    if(event.target.files.length > 0){
+      const files = event.target.files;
+      this.arquivos = files;
+    }
+  }
+
   salvar() {
     const produto: Product = {
       name: this.form.controls.name.value ? this.form.controls.name.value : "",
       description: this.form.controls.description.value? this.form.controls.description.value : "",
       rating: this.form.controls.rating.value? Number(this.form.controls.rating.value) : 0,
       price: this.form.controls.price.value? Number(this.form.controls.price.value.replace(".", "").replace(",", ".")) : 0.00,
-      unit: this.form.controls.unit.value ? Number(this.form.controls.unit.value) : 0
+      unit: this.form.controls.unit.value ? Number(this.form.controls.unit.value) : 0,
+      cover: {
+        source: this.form.controls.cover.value ? this.form.controls.cover.value : "",
+      },
     }
 
+    const formData = new FormData();
+    formData.append("name", this.form.controls.name.value ? this.form.controls.name.value : "")
+    formData.append("description", this.form.controls.description.value? this.form.controls.description.value : "")
+    formData.append("rating", this.form.controls.rating.value? this.form.controls.rating.value : '0')
+    formData.append("price", this.form.controls.price.value? this.form.controls.price.value.replace(".", "").replace(",", ".") : '0.00')
+    formData.append("unit", this.form.controls.unit.value ? this.form.controls.unit.value : '0')
+    formData.append("cover", this.arquivo)
+    for(let photo of this.arquivos){
+      formData.append("photos", photo)
+    }
+
+    // if(this.form.controls.images.value){
+    //   for(let image of this.form.controls.images.value) {
+    //     if(!produto.images){
+    //       produto.images = []
+    //     }
+    //     produto.images?.push({source: image})
+    //   }
+    // }
+    
     if(this.produto) {
       produto.id = this.produto.id;
       produto.active = this.produto.active;
@@ -92,7 +134,7 @@ export class DetalhesProdutoComponent implements OnInit {
         }
       })
     } else {
-      this.productService.insert(produto).subscribe(res => {
+      this.productService.insert(formData).subscribe(res => {
         if(res.success) {
           alert(`Produto ${res.data.name} adicionado com sucesso`);
           this.router.navigate(["backoffice/produtos"]);

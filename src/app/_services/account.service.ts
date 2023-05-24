@@ -75,7 +75,7 @@ export class AccountService {
      * @returns Retorna todos os usuario presentes no banco de dados
      */
     getAll() {
-        return this.http.get<ApiResponse<User[]>>(`${environment.apiUrl}/getUsers`).pipe(
+        return this.http.get<ApiResponse<User[]>>(`${environment.apiUrl}/User/getUsers`).pipe(
             map(res => {
                 return res.data;
             })
@@ -88,7 +88,7 @@ export class AccountService {
      * @returns retorna os dados do usuario que a api mandou
      */
     getById(id: string) {
-        return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/getUser?ID=${id}`).pipe(
+        return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/User/getUser?ID=${id}`).pipe(
             map(res => {
                 return res.data;
             })

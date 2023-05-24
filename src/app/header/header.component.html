@@ -11,10 +11,10 @@
             <span class="material-symbols-outlined"> badge </span>
             <span>Usuarios</span>
         </button>
-        <nav *ngIf="this.accountService.userValue?.token" class="nav-bar">
+        <nav class="nav-bar">
             <a href="/cliente/cart"><span class="material-symbols-outlined">shopping_cart</span></a>
             <a href="/cliente/detalhes-usuario"><span class="material-symbols-outlined">person</span></a>
-            <a href="/logout" (click)="logout()"><span class="material-symbols-outlined"> logout </span></a>
+            <a  href="/logout" (click)="logout()"><span class="material-symbols-outlined"> logout </span></a>
         </nav>
     </div>
 </header>

@@ -29,8 +29,11 @@
             <label for="m-quantidadeProduto">Quantidade</label>
             <input id="m-quantidadeProduto" type="number" name="m-quantidadeProduto" placeholder="0" formControlName="unit"/>
 
-            <label for="m-imagemProduto">Imagem do Produto</label>
-            <input id="m-imagemProduto" name="m-imagemProduto" type="file" accept="image/*" multiple >
+            <label for="m-imagemPrincipal">Imagem principal do Produto</label>
+            <input id="m-imagemPrincipal" name="m-imagemPrincipal" type="file" accept="image/*" formControlName="cover" (change)="onFileChange($event)">
+
+            <label for="m-imagemProduto">Imagens do Produto</label>
+            <input id="m-imagemProduto" name="m-imagemProduto" type="file" accept="image/*" multiple formControlName="images" (change)="onFilesChange($event)">
   
             <button (click)="salvar()" id="btnSalvar">Salvar</button>
             <button (click)="cancelar()" class="cancelar">Cancelar</button>

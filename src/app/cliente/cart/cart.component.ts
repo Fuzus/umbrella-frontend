@@ -22,6 +22,10 @@ export class CartComponent {
 
   ngOnInit(): void {
     this.itensCarrinho = this.carrinhoService.obtemCarrinho();
+    for(let itemCarrinho of this.itensCarrinho){
+      if(itemCarrinho.images)
+      itemCarrinho.cover = itemCarrinho.images.find(x => x.type == 1)
+    }
     this.calcularTotal();
   }
 

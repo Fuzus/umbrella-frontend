@@ -138,8 +138,9 @@ a {
 .header{
     z-index: 1;
     margin: auto;
+    margin-bottom: 20px;
     width: 100%;
-    position: fixed;
+    position: sticky;
     background-color: #efefef;
     border: 1px solid hsla(0, 0%, 65%, 0.158);
     box-shadow: 0 0 36px 1px rgba(0, 0, 0, 0.2);
@@ -537,7 +538,6 @@ tbody tr td.acao {
 .popup {
     display: flex;
     flex-direction: column;
-    margin-top: 8%;
     align-items: center;
     padding: 40px;
     background-color: white;
