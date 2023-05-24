@@ -64,11 +64,19 @@ export class AccountService {
      * @returns retorna dados padrão da api (success; message; data)
      */
     register(user: User) {
-        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/register`, user).pipe(
+        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/User/register`, user).pipe(
             map(res => {
                 return res;
             })
         );
+    }
+
+    registerClient(user: User){
+        return this.http.post<ApiResponse<User>>(`${environment.apiUrl}/register`, user).pipe(
+            map(res => {
+                return res;
+            })
+        )
     }
 
     /**

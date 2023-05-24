@@ -1,3 +1,5 @@
+import { Address } from "./address";
+
 export class User {
   id?: string;
   userName?: string;
@@ -9,5 +11,8 @@ export class User {
   isAdmin?: boolean;
   token?:string;
   lockoutEnabled?: boolean;
-  roles?: string[]
+  roles?: string[];
+  address?: Address[];
+  dataNascimento?: string;
+  masculino?: boolean;
 }

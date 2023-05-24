@@ -11,7 +11,7 @@ export class AddressService {
     private http: HttpClient
   ) { }
 
-  seachCep(cep: string){
+  searchCep(cep: string){
     return this.http.get<any>(`https://viacep.com.br/ws/${cep}/json/`).pipe(
       map(res => res)
     )

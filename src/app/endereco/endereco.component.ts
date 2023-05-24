@@ -16,7 +16,9 @@ export class EnderecoComponent {
     houseNumber: [""],
     district: [""],
     zipCode: [""],
-    type: ["Entrega"]
+    default: ["true"],
+    city: [""],
+    state: [""],
   });
 
   constructor(
@@ -26,22 +28,24 @@ export class EnderecoComponent {
   ){}
 
   search() {
-    this.addressService.seachCep(this.form.controls.zipCode.value? this.form.controls.zipCode.value: "").subscribe(res => {
-      this.form.controls.zipCode.setValue(res.cep)
-      this.form.controls.address.setValue(res.logradouro)
-      this.form.controls.district.setValue(res.bairro)
+    this.addressService.searchCep(this.form.controls.zipCode.value? this.form.controls.zipCode.value: "").subscribe(res => {
+      this.form.controls.zipCode.setValue(res.cep);
+      this.form.controls.address.setValue(res.logradouro);
+      this.form.controls.district.setValue(res.bairro);
+      this.form.controls.city.setValue(res.localidade);
+      this.form.controls.state.setValue(res.uf)
     })
   }
 
   salvar() {
     const address: Address = {
-      id: String(enderecos.length + 1),
-      address: this.form.controls.address.value? this.form.controls.address.value : "",
-      houseNumber: this.form.controls.houseNumber.value? Number(this.form.controls.houseNumber.value) : 0,
-      district: this.form.controls.district.value? this.form.controls.district.value : "",
-      zipCode: this.form.controls.zipCode.value? this.form.controls.zipCode.value :  "",
-      type: this.form.controls.type.value? this.form.controls.type.value : undefined,
-      default: false
+      rua: this.form.controls.address.value? this.form.controls.address.value : "",
+      numero: this.form.controls.houseNumber.value? Number(this.form.controls.houseNumber.value) : 0,
+      bairro: this.form.controls.district.value? this.form.controls.district.value : "",
+      cep: this.form.controls.zipCode.value? this.form.controls.zipCode.value :  "",
+      principal: this.form.controls.default.value? this.form.controls.default.value == "true": false,
+      cidade: this.form.controls.city.value? this.form.controls.city.value : "",
+      uf: this.form.controls.state.value? this.form.controls.state.value : ""
     }
     enderecos.push(address);
     this.location.back()

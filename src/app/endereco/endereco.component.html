@@ -15,11 +15,16 @@
             <label for="m-bairro">Bairro</label>
             <input id="m-bairro" name="m-bairro" type="email" formControlName="district" />
 
-            <label for="m-tipo">Tipo</label>
-            <select name="m-tipo" id="m-tipo" formControlName="type">
-                <option value="Entrega">Entrega</option>
-                <option value="Faturamento">Faturamento</option>
-            </select>
+            <label for="m-cidade">Cidade</label>
+            <input id="m-cidade" name="m-cidade" type="text" formControlName="city" />
+
+            <label for="">UF</label>
+            <input type="text" name="m-uf" id="m-uf" formControlName="state">
+
+            <div class="default-address">
+                <label for="m-default">Padrao</label>
+                <input name="m-default" id="m-default" formControlName="default" type="checkbox">
+            </div>
 
             <button (click)="salvar()" id="btnSalvar">Salvar</button>
         </form>

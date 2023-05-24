@@ -27,8 +27,8 @@
         </div>
         <table>
             <tr *ngFor="let endereco of address">
-                <td><input type="radio" name="m-endereco-1" [checked]="endereco.default"></td>
-                <td><p>{{ endereco.address }}, {{ endereco.houseNumber }} <br> {{ endereco.district }} <br> {{ endereco.zipCode }}</p></td>
+                <td><input type="radio" name="m-endereco-1" [checked]="endereco.principal"></td>
+                <td><p>{{ endereco.rua }}, {{ endereco.numero }} <br> {{ endereco.bairro }} <br> {{ endereco.cep }}</p></td>
                 <td><button (click)="deletarEndereco(endereco.id)"><span class="material-symbols-outlined">delete</span></button></td>
             </tr>
         </table>
