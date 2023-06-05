@@ -18,7 +18,7 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.accountService.userValue) {
-      if (this.accountService.userValue.isAdmin) {
+      if (this.accountService.userValue.roles?.includes("Admin")) {
         this.accountService.getAll().subscribe(res => this.usuarios = res);
         return;
       }

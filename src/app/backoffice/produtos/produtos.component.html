@@ -4,7 +4,7 @@
         <div class="form-container">
             <div class="header-cadastro">
                 <span>Produtos</span>
-                <button *ngIf="this.accountService.userValue?.isAdmin" (click)="incluirProduto()" id="new" class="material-symbols-outlined">add</button>
+                <button *ngIf="this.isAdmin" (click)="incluirProduto()" id="new" class="material-symbols-outlined">add</button>
             </div>
             <!-- 1 -->
             <div class="divTable">
@@ -26,7 +26,7 @@
                             <td>{{ produto.name }}</td>
                             <td>{{ produto.price | currency:"BRL" }}</td>
                             <td>{{ produto.unit }}</td>
-                            <td><input id="situacao-{{ produto.id }}" type="checkbox" [checked]="produto.active" (click)="alterarFlagItemAtivo(produto)" class="check-situacao" [disabled]="!this.accountService.userValue?.isAdmin"></td>
+                            <td><input id="situacao-{{ produto.id }}" type="checkbox" [checked]="produto.active" (click)="alterarFlagItemAtivo(produto)" class="check-situacao" [disabled]="!this.isAdmin"></td>
                             <td><button (click)="editarProduto(produto.id)"><span class="material-symbols-outlined">edit</span></button></td>
                             <td><button *ngIf="this.accountService.userValue?.isAdmin" (click)="visualizarProduto(produto.id)"><span class="material-symbols-outlined">visibility</span></button></td>
                         </tr>

@@ -58,7 +58,7 @@ export class DetalhesProdutoComponent implements OnInit {
     const routeParams = this.activateRouter.snapshot.paramMap;
     const codigoProduto = routeParams.get('id');
 
-    if(!this.accountService.userValue?.isAdmin){
+    if(!this.accountService.userValue?.roles?.includes("Admin")){
       this.form.controls.name.disable();
       this.form.controls.rating.disable();
       this.form.controls.description.disable();

@@ -9,18 +9,19 @@ import { AccountService } from 'src/app/_services/account.service';
   templateUrl: './detalhes-usuario.component.html',
   styleUrls: ['./detalhes-usuario.component.css']
 })
-export class DetalhesUsuarioComponent implements OnInit{
+export class DetalhesUsuarioComponent implements OnInit {
   address: Address[] = [];
   user: User | undefined;
 
   constructor(
     private accountService: AccountService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-      this.address = enderecos;
-      this.accountService.getUserData().subscribe(res => this.user = res);
+    this.address = enderecos;
+    if (this.accountService.userValue)
+      this.user = this.accountService.userValue;
   }
 
   inserirEndereco() {

@@ -12,6 +12,7 @@ import { AccountService } from 'src/app/_services/account.service';
 export class ProdutosComponent implements OnInit {
 
   produtos: Product[] | undefined;
+  isAdmin: boolean | undefined;
 
   constructor(
     private prodcutService: ProductService,
@@ -21,6 +22,7 @@ export class ProdutosComponent implements OnInit {
 
   ngOnInit(): void {
     this.prodcutService.getAll().subscribe(res => this.produtos = res)
+    this.isAdmin = this.accountService.userValue?.roles?.includes("Admin") ? true : false;
   }
 
   incluirProduto() {

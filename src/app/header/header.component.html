@@ -2,12 +2,12 @@
  <header class="header">
     <div class="inner">
         <a class="logo" routerLink="cliente"></a>
-        <button *ngIf="this.accountService.userValue?.token" routerLink="backoffice/produtos">
+        <button *ngIf="this.isWorker" routerLink="backoffice/produtos">
             <span class="material-symbols-outlined"> inventory </span>
             <span>Produtos</span>
         </button>
         <!-- Menu 2 -->
-        <button *ngIf="this.accountService.userValue?.token" routerLink="backoffice/usuarios">
+        <button *ngIf="this.isWorker" routerLink="backoffice/usuarios">
             <span class="material-symbols-outlined"> badge </span>
             <span>Usuarios</span>
         </button>

@@ -13,6 +13,7 @@ import { ApiResponse } from '../_models/api.response';
 export class AccountService {
     private userSubject: BehaviorSubject<User | null>;
     public user: Observable<User | null>;
+    public userRole: BehaviorSubject<boolean>
 
     constructor(
         private router: Router,
@@ -20,10 +21,15 @@ export class AccountService {
     ) {
         this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')!));
         this.user = this.userSubject.asObservable();
+        this.userRole = new BehaviorSubject<boolean>(false)
     }
 
     public get userValue() {
         return this.userSubject.value;
+    }
+
+    public get isWorker(){
+        return this.userRole.asObservable()
     }
 
     login(email: string, password: string) {
@@ -33,8 +39,11 @@ export class AccountService {
                     // Salva os dados do usuario no localStorage do navegador para manter a sessão ativa mesmo após refresh da pagina
                     if (response.success) {
                         localStorage.setItem("access-token", response.data?.token!);
-                        this.userSubject.next({ ...this.userSubject, token: response.data?.token })
-                        this.getRole()
+                        this.userSubject.next({ ...this.userSubject, token: response.data?.token });
+                        this.getUserData().subscribe(res => {
+                            localStorage.setItem("user", JSON.stringify(this.userValue));
+                            this.userRole.next(this.userValue?.roles?.includes("Admin") || this.userValue?.roles?.includes("restockers") ? true : false);
+                        });
                         return true;
                     }
                     //this.userSubject.next(user);
@@ -47,13 +56,11 @@ export class AccountService {
             );
     }
 
-    saveToken(token: string, isAdmin: boolean) {
-        this.userSubject.next({ ...this.userSubject, token: token, isAdmin: isAdmin })
-    }
-
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('access-token');
+        localStorage.removeItem('user');
+        localStorage.removeItem('isAdmin');
         this.userSubject.next(null);
         this.router.navigate(['/login']);
     }
@@ -71,7 +78,7 @@ export class AccountService {
         );
     }
 
-    registerClient(user: User){
+    registerClient(user: User) {
         return this.http.post<ApiResponse<User>>(`${environment.apiUrl}/register`, user).pipe(
             map(res => {
                 return res;
@@ -118,66 +125,7 @@ export class AccountService {
      * @description Setta o grupo em que o usuario pertence
      */
     getRole() {
-        this.isAdmin().subscribe(
-            res => {
-                if (res) {
-                    localStorage.setItem('isAdmin', "true");
-                    this.userSubject.next({ ...this.userValue, isAdmin: true });
-                }
-            });
-
-        this.isRestocker().subscribe(
-            res => {
-                if (res) {
-                    localStorage.setItem('isAdmin', "false");
-                    this.userSubject.next({ ...this.userValue, isAdmin: false });
-                }
-            }
-        )
-    }
-
-    /**
-     * @description Chama o endpoint "/api/home/admin"
-     * @returns Retorna se o usuario logado é um admin
-     */
-    isAdmin() {
-        return this.http.get<Response>(`${environment.apiUrl}/api/home/admin`)
-            .pipe(
-                map(response => {
-                    if (response.status == 200 || response.status == 204) {
-                        return true;
-                    }
-                    return false;
-                }),
-                catchError((err, httpErrorResponse) => {
-                    if (err.status == 200) {
-                        return of(true);
-                    }
-                    return of(false);
-                })
-            );
-    }
-
-    /**
-     * @description Chama o endpoint "/api/home/restockers"
-     * @returns Retorna se o usuario logado é um estoquista
-     */
-    isRestocker() {
-        return this.http.get<Response>(`${environment.apiUrl}/api/home/restockers`)
-            .pipe(
-                map(response => {
-                    if (response.status == 200 || response.status == 204) {
-                        return true;
-                    }
-                    return false;
-                }),
-                catchError((err, httpErrorResponse) => {
-                    if (err.status == 200) {
-                        return of(true);
-                    }
-                    return of(false);
-                })
-            );
+        this.userValue?.roles?.includes("admin") ? localStorage.setItem('isAdmin', "true") : localStorage.setItem('isAdmin', "false");
     }
 
     activateUser(params: any) {
@@ -193,8 +141,25 @@ export class AccountService {
     }
 
     getUserData() {
-        return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/getUserInfo`).pipe(
-            map(res => res.data)
+        return this.http.get<ApiResponse<User>>(`${environment.apiUrl}/User/getUserInfo`).pipe(
+            map(res => {
+                if (res.success) {
+                    this.userSubject.next({
+                        ...this.userValue,
+                        nome: res.data.nome,
+                        id: res.data.id,
+                        userName: res.data.userName,
+                        cpf: res.data.cpf,
+                        masculino: res.data.masculino,
+                        dataNascimento: res.data.dataNascimento,
+                        email: res.data.email,
+                        lockoutEnabled: res.data.lockoutEnabled,
+                        address: res.data.address,
+                        roles: res.data.roles,
+                    });
+                }
+                return res.data;
+            })
         )
     }
 }

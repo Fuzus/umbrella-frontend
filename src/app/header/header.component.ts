@@ -1,23 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
+import { User } from '../_models/user';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  user: User | undefined
+  isWorker: boolean = false;
 
   constructor(
-    protected accountService: AccountService,
-    private router: Router
-  ) {}
+    private accountService: AccountService
+  ) { }
+
+
+  ngOnInit(): void {
+    this.user = this.accountService.userValue ? this.accountService.userValue : undefined;
+    this.accountService.isWorker.subscribe(() => {
+      if(localStorage.getItem('user')) {
+        const user = JSON.parse(localStorage.getItem('user')!);
+        this.isWorker = user?.roles?.includes("Admin") || user?.roles?.includes("restockers") ? true : false;
+      }
+    });
+  }
 
   handleHeaderClicked(param: string) {
     const subNavOuter = document.querySelector(`#${param}`),
       subNavInner = document.querySelector(`#${param} .subnav-inner`);
-      
+
     if (subNavOuter != null && subNavInner != null) {
       const button = subNavOuter.previousElementSibling;
       if (button != null) {
