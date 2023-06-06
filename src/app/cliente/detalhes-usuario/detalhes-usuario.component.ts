@@ -19,9 +19,10 @@ export class DetalhesUsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.address = enderecos;
-    if (this.accountService.userValue)
+    if (this.accountService.userValue) {
       this.user = this.accountService.userValue;
+      this.address = this.user.address!;
+    }
   }
 
   inserirEndereco() {
@@ -30,5 +31,9 @@ export class DetalhesUsuarioComponent implements OnInit {
 
   deletarEndereco(id: string | undefined) {
     this.address = this.address.filter(x => x.id != id);
+  }
+
+  salvar() {
+
   }
 }

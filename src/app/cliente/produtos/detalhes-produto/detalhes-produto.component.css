@@ -56,6 +56,17 @@ input {
     padding: 5px;
 }
 
+input.cep {
+    width: fit-content;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.calc-frete{
+    width: fit-content;
+    font-size: 16px;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

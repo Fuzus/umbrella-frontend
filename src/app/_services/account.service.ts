@@ -60,7 +60,6 @@ export class AccountService {
         // remove user from local storage and set current user to null
         localStorage.removeItem('access-token');
         localStorage.removeItem('user');
-        localStorage.removeItem('isAdmin');
         this.userSubject.next(null);
         this.router.navigate(['/login']);
     }

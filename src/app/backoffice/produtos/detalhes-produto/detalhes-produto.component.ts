@@ -87,6 +87,11 @@ export class DetalhesProdutoComponent implements OnInit {
 
   onFilesChange(event:any){
     if(event.target.files.length > 0){
+      if(event.target.files.length > 5) {
+        alert("O numero maximo de arquivos é 5");
+        this.form.controls.images.setValue("");
+        return;
+      }
       const files = event.target.files;
       this.arquivos = files;
     }

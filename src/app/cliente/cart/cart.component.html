@@ -6,7 +6,8 @@
                 <img [src]="itemCarrinho.cover?.source"
                     alt="">
                 <h4>{{ itemCarrinho.name }}</h4>
-                <p>Preco: {{ itemCarrinho.price | currency: "BRL" }}</p>
+                <p>Valor unitario: {{ itemCarrinho.price | currency: "BRL" }}</p>
+                <p>Valor: {{ itemCarrinho.price*itemCarrinho.quantity | currency: "BRL" }}</p>
                 <label>
                     Quantidade:
                     <input type="number" [(ngModel)]="itemCarrinho.quantity" (change)="calcularTotal()">

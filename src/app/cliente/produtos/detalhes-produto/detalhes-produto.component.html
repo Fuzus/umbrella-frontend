@@ -20,6 +20,13 @@
             Unidades
         </label>
         <p class="product__aviability">{{ produto?.unit }} unidade(s) em estoque</p>
+        <label>
+            CEP
+            <input class="cep" type="text" [(ngModel)]="cep">
+            <button class="calc-frete">
+                Calcular frete
+            </button>
+        </label>
         <button (click)="addToCart()">Adicionar ao Carrinho</button>
     </div>
 </section>
