@@ -1,1 +1,20 @@
-<p>meus-pedidos works!</p>
+<h2>Meus pedidos</h2>
+<div class="container">
+    <table>
+        <thead>
+            <th>id</th>
+            <th>status</th>
+            <th>Forma de pagamento</th>
+            <th>Produtos</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of myOrders">
+                <td>{{ order.id }}</td>
+                <td>{{ order.status }}</td>
+                <td *ngIf="order.paymentType == 1">Cartão de Crédito</td>
+                <td *ngIf="order.paymentType == 2">Boleto</td>
+                <td><span *ngFor="let product of order.orderProducts">{{ product.product?.name }}; </span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

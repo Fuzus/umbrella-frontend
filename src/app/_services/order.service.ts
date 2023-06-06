@@ -63,4 +63,10 @@ export class OrderService {
       })
     )
   }
+
+  getOrdersClient() {
+    return this.http.get<ApiResponse<Order[]>>(`${environment.apiUrl}/GetUserOrders`).pipe(
+      map(res => res.data)
+    )
+  }
 }
