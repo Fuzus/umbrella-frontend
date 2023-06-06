@@ -11,6 +11,10 @@
             <span class="material-symbols-outlined"> badge </span>
             <span>Usuarios</span>
         </button>
+        <button *ngIf="!this.isWorker" routerLink="cliente/pedidos">
+            <span class="material-symbols-outlined"> list_alt </span>
+            <span>Meus Pedidos</span>
+        </button>
         <nav class="nav-bar">
             <a href="/cliente/cart"><span class="material-symbols-outlined">shopping_cart</span></a>
             <a href="/cliente/detalhes-usuario"><span class="material-symbols-outlined">person</span></a>
