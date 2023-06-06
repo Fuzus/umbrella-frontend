@@ -1,5 +1,5 @@
 import { Address } from "./address";
-import { ProductCart } from "./product";
+import { ProductCart, ProductDTO } from "./product";
 
 
 export interface Order {
@@ -12,7 +12,7 @@ export interface Order {
     expireAt?: string,
     quota?: number,
     address?: Address,
-    orderProducts?: ProductCart[],
+    orderProducts?: ProductDTO[],
     id?: string
 }
 

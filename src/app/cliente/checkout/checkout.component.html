@@ -1,0 +1,17 @@
+<section>
+    <h2 class="cart__title">Carrinho</h2>
+    <div class="cart__list">
+        <ul>
+            <li *ngFor="let itemCarrinho of itensCarrinho">
+                <h4>{{ itemCarrinho.name }}</h4>
+                <p>Valor unitario: {{ itemCarrinho.price | currency: "BRL" }}</p>
+                <p>Valor: {{ itemCarrinho.price*itemCarrinho.quantity | currency: "BRL" }}</p>
+                <span>
+                    Quantidade: {{ itemCarrinho.quantity }}
+                </span>
+            </li>
+        </ul>
+        <h2 class="cart__total">Total: {{ total | currency: "BRL" }}</h2>
+        <button class="buy-button" (click)="doCheckout()">Finalizar compra</button>
+    </div>
+</section>

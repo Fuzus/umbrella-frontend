@@ -14,6 +14,12 @@ export interface Product {
     images?: Image[];
 }
 
+export interface ProductDTO{
+    productId: string;
+    quantity: number;
+    product?: Product;
+}
+
 export interface ProductCart extends Product {
     quantity: number;
     orderId?: string;

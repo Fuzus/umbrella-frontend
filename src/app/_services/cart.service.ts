@@ -26,7 +26,7 @@ export class CartService {
 
   limparCarrinho() {
     this.itens = [];
-    localStorage.clear();
+    localStorage.removeItem("carrinho");
   }
 
   removerProdutoCarrinho(produtoId: string | undefined) {

@@ -49,6 +49,7 @@ export class CartComponent {
 
   adicionaFrete(valor: number) {
     this.valorFrete = valor;
+    sessionStorage.setItem("valorTotal", String(this.total));
     this.calcularTotal();
   }
 }
