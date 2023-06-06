@@ -11,9 +11,11 @@ export interface Product {
     updated?: Date | null;
     active?: boolean;
     cover?: Image;
-    images?: Image[]
+    images?: Image[];
 }
 
 export interface ProductCart extends Product {
     quantity: number;
-}
+    orderId?: string;
+    total?: number;
+}  

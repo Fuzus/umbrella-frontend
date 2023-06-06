@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Address, enderecos } from 'src/app/_models/address';
+import { Address } from 'src/app/_models/address';
 import { AddressService } from '../_services/address.service';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-endereco',
@@ -24,7 +25,8 @@ export class EnderecoComponent {
   constructor(
     private fb: FormBuilder,
     private location: Location,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private accountService: AccountService
   ){}
 
   search() {
@@ -41,13 +43,26 @@ export class EnderecoComponent {
     const address: Address = {
       rua: this.form.controls.address.value? this.form.controls.address.value : "",
       numero: this.form.controls.houseNumber.value? Number(this.form.controls.houseNumber.value) : 0,
+      complemento: "string",
       bairro: this.form.controls.district.value? this.form.controls.district.value : "",
       cep: this.form.controls.zipCode.value? this.form.controls.zipCode.value :  "",
       principal: this.form.controls.default.value? this.form.controls.default.value == "true": false,
       cidade: this.form.controls.city.value? this.form.controls.city.value : "",
       uf: this.form.controls.state.value? this.form.controls.state.value : ""
     }
-    enderecos.push(address);
-    this.location.back()
+    this.accountService.update({
+      ...address,
+      nome: this.accountService.userValue?.nome!,
+      masculino: this.accountService.userValue?.masculino!,
+      dataNascimento: this.accountService.userValue?.dataNascimento!
+    }).subscribe(res => {
+      if(res.success) {
+        this.accountService.userValue?.address?.push(address)
+        alert("Endereço criado com sucesso")
+        this.location.back();
+      } else {
+        alert("Erro ao criar endereço")
+      }
+    })
   }
 }

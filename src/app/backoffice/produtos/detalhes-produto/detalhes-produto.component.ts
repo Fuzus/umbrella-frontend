@@ -116,18 +116,11 @@ export class DetalhesProdutoComponent implements OnInit {
     formData.append("price", this.form.controls.price.value? this.form.controls.price.value.replace(".", "").replace(",", ".") : '0.00')
     formData.append("unit", this.form.controls.unit.value ? this.form.controls.unit.value : '0')
     formData.append("cover", this.arquivo)
-    for(let photo of this.arquivos){
-      formData.append("photos", photo)
+    if(this.arquivos){
+      for(let photo of this.arquivos){
+        formData.append("photos", photo)
+      }
     }
-
-    // if(this.form.controls.images.value){
-    //   for(let image of this.form.controls.images.value) {
-    //     if(!produto.images){
-    //       produto.images = []
-    //     }
-    //     produto.images?.push({source: image})
-    //   }
-    // }
     
     if(this.produto) {
       produto.id = this.produto.id;

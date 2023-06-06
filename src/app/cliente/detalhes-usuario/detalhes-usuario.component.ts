@@ -19,10 +19,10 @@ export class DetalhesUsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.accountService.userValue) {
-      this.user = this.accountService.userValue;
-      this.address = this.user.address!;
-    }
+    this.accountService.getUserData().subscribe(res => {
+      this.user = res;
+      this.address = res.address!;
+    });
   }
 
   inserirEndereco() {

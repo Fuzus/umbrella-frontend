@@ -2,6 +2,7 @@ export interface Address {
     id?: string;
     rua: string;
     numero: number;
+    complemento: string;
     bairro: string;
     cep: string;
     principal: boolean;
@@ -9,4 +10,4 @@ export interface Address {
     uf: string;
 }
 
-export const enderecos: Address[] = []
+export const enderecos = []

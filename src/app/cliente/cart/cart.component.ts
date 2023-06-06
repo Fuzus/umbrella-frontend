@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product, ProductCart } from 'src/app/_models/product';
+import { ProductCart } from 'src/app/_models/product';
+import { AccountService } from 'src/app/_services/account.service';
 import { CartService } from 'src/app/_services/cart.service';
-import { ProductService } from 'src/app/_services/product.service';
+import { OrderService } from 'src/app/_services/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +18,8 @@ export class CartComponent {
 
   constructor(
     private carrinhoService: CartService,
-    private productService: ProductService,
+    private orderService: OrderService,
+    private accontService: AccountService,
     private router: Router
   ) { }
 
@@ -40,14 +42,9 @@ export class CartComponent {
   }
 
   comprar() {
-    if (this.productService.buy(this.itensCarrinho)) {
-      alert("Parabéns! você finalizou a sua Compra");
-      this.carrinhoService.limparCarrinho();
-      this.router.navigate(["cliente"])
-    } else {
-      alert("Erro ao realizar a compra")
-    }
-
+    this.router.navigate(["cliente/pagamento"])
+    this.orderService.setOrderUser(this.accontService.userValue!);
+    this.orderService.setOrderProduct(this.itensCarrinho);
   }
 
   adicionaFrete(valor: number) {
