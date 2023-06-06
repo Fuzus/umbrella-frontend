@@ -32,6 +32,8 @@ export class CheckoutComponent implements OnInit {
           this.cartService.limparCarrinho()
           alert("Compra concluída com sucesso");
           this.router.navigate(["cliente"]);
+        } else  {
+          alert("Ocorreu um erro ao realiar a compra")
         }
       }
     })
