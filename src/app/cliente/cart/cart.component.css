@@ -75,3 +75,9 @@ p {
 h4 {
     size: 1em;
 }
+
+table {
+    padding: 10px;
+    width: 50%;
+    margin-bottom: 16px;
+}

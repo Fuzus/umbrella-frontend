@@ -54,4 +54,33 @@ export class DetalhesProdutoComponent implements OnInit {
     }
   }
 
+  calcularFrete() {
+    const div = document.querySelector("#div-frete") as HTMLElement | null;
+    if (div) {
+      div.innerHTML += `
+      <table>
+        <tr>
+            <td><label> Padrão <span style="font-weight: bold;">R$ 10,00</span></label></td>
+            <td>
+                <span>Produto chegará em 15 dias</span>
+            </td>
+        </tr>
+        <tr>
+            <td><label> Express <span style="font-weight: bold;">R$ 50,00</span></label></td>
+            <td>
+                <span>Produto chegará em 3 dias</span>
+            </td>
+        </tr>
+        <tr>
+            <td><label> Alternativa <span style="font-weight: bold;">R$ 15,00</span></label></td>
+            <td>
+                <span>Produto chegará em 13 dias</span>
+            </td>
+        </tr>
+      </table>
+      `
+
+    }
+  }
+
 }

@@ -13,6 +13,7 @@ export class CartComponent {
 
   itensCarrinho: ProductCart[] = [];
   total: number = 0;
+  valorFrete: number = 0;
 
   constructor(
     private carrinhoService: CartService,
@@ -35,7 +36,7 @@ export class CartComponent {
   }
 
   calcularTotal() {
-    this.total = this.itensCarrinho.reduce((prev, curr) => prev + (curr.price * curr.quantity), 0);
+    this.total = this.itensCarrinho.reduce((prev, curr) => prev + (curr.price * curr.quantity), 0) + this.valorFrete;
   }
 
   comprar() {
@@ -47,5 +48,10 @@ export class CartComponent {
       alert("Erro ao realizar a compra")
     }
 
+  }
+
+  adicionaFrete(valor: number) {
+    this.valorFrete = valor;
+    this.calcularTotal();
   }
 }

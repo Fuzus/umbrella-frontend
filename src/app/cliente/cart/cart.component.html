@@ -3,8 +3,7 @@
     <div class="cart__list" *ngIf="itensCarrinho.length > 0; else semProduto">
         <ul>
             <li *ngFor="let itemCarrinho of itensCarrinho">
-                <img [src]="itemCarrinho.cover?.source"
-                    alt="">
+                <img [src]="itemCarrinho.cover?.source" alt="">
                 <h4>{{ itemCarrinho.name }}</h4>
                 <p>Valor unitario: {{ itemCarrinho.price | currency: "BRL" }}</p>
                 <p>Valor: {{ itemCarrinho.price*itemCarrinho.quantity | currency: "BRL" }}</p>
@@ -16,6 +15,27 @@
                         class="material-symbols-outlined">delete</span></button>
             </li>
         </ul>
+        <h3>Frete</h3>
+        <table>
+            <tr>
+                <td><label><input type="radio" name="frete" (click)="adicionaFrete(10)"> Padrão <span style="font-weight: bold;">R$ 10,00</span></label></td>
+                <td>
+                    <span>Produto chegará em 15 dias</span>
+                </td>
+            </tr>
+            <tr>
+                <td><label><input type="radio" name="frete" (click)="adicionaFrete(50)"> Express <span style="font-weight: bold;">R$ 50,00</span></label></td>
+                <td>
+                    <span>Produto chegará em 3 dias</span>
+                </td>
+            </tr>
+            <tr>
+                <td><label><input type="radio" name="frete" (click)="adicionaFrete(15)"> Alternativa <span style="font-weight: bold;">R$ 15,00</span></label></td>
+                <td>
+                    <span>Produto chegará em 13 dias</span>
+                </td>
+            </tr>
+        </table>
         <h2 class="cart__total">Total: {{ total | currency: "BRL" }}</h2>
         <button class="buy-button" (click)="comprar()">Comprar</button>
     </div>
