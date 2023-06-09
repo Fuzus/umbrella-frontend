@@ -69,4 +69,34 @@ export class OrderService {
       map(res => res.data)
     )
   }
+
+  getOrderById(id: string) {
+    return this.http.get<ApiResponse<any>>(`${environment.apiUrl}/GetOrderById?orderId=${id}`).pipe(
+      map(res => {
+        return {
+          userId: res.data.userId,
+          status: res.data.status,
+          paymentType: res.data.paymentType,
+          number: res.data.number,
+          cvv: res.data.cvv,
+          cardName: res.data.cardName,
+          expireAt: res.data.expireAt,
+          quota: res.data.quota,
+          address: {
+            rua: res.data.rua,
+            numero: res.data.numero,
+            complemento: res.data.complemento,
+            bairro: res.data.bairro,
+            cidade: res.data.cidade,
+            uf: res.data.uf,
+            cep: res.data.cep,
+            principal: true
+          },
+          orderProducts: res.data.orderProducts,
+          id: res.data.id,
+          created: res.data.created
+        }
+      })
+    )
+  }
 }

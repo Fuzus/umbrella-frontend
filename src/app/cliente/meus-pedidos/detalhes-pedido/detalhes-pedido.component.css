@@ -1,0 +1,31 @@
+.cart__title {
+    font-size: 44px;
+    color: black;
+    font-weight: 700;
+    padding: 8px;
+}
+
+.cart__total {
+    font-size: 24px;
+    color: black;
+    font-weight: 700;
+    padding: 8px 0;
+}
+
+table {
+    align-items: center;
+    justify-content: center;
+    margin-top: 28px;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 28px;
+}
+
+th {
+    white-space: nowrap
+}
+
+caption {
+    font-weight: bolder;
+    margin-bottom: 12px;
+}

@@ -9,7 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { registerLocaleData } from '@angular/common';
 
-import ptBr from '@angular/common/locales/pt'
+import ptBr from '@angular/common/locales/pt';
+import { DetalhesPedidoComponent } from './cliente/meus-pedidos/detalhes-pedido/detalhes-pedido.component'
 
 
 registerLocaleData(ptBr)
@@ -17,7 +18,8 @@ registerLocaleData(ptBr)
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    DetalhesPedidoComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   user: User | undefined
   isWorker: boolean = false;
+  isClient: boolean = false;
 
   constructor(
     private accountService: AccountService
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
       if(localStorage.getItem('user')) {
         const user = JSON.parse(localStorage.getItem('user')!);
         this.isWorker = user?.roles?.includes("Admin") || user?.roles?.includes("restockers") ? true : false;
+        this.isClient = user?.roles?.includes("client")
       }
     });
   }

@@ -1,0 +1,28 @@
+<section>
+    <h2 class="cart__title">Detalhes do Pedido </h2>
+    <h3>Pedido #{{ order?.id }}</h3>
+    <table>
+        <caption>Produtos</caption>
+        <tr *ngFor="let product of order?.orderProducts">
+            <th>Produto: {{ product.product?.name }}</th>
+            <td>Quantidade: {{ product.quantity }}</td>
+            <td>Valor: {{ product.product?.price! * product.quantity | currency:'BRL' }}</td>
+        </tr>
+    </table>
+    <table>
+        <caption>Forma de pagamento</caption>
+        <tr>
+            <td *ngIf="order?.paymentType == 1">Cartão de Crédito ***{{ numeroCartao }}</td>
+            <td *ngIf="order?.paymentType == 2">Boleto</td>
+            <td>Numero de Parcelas: {{ order?.quota }}</td>
+        </tr>
+    </table>
+    <table>
+        <caption>Endereço de entrega</caption>
+        <tr>
+            <td>
+                <span>{{ order?.address?.rua }}, {{ order?.address?.numero }}</span>
+            </td>
+        </tr>
+    </table>
+</section>

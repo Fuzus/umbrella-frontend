@@ -3,13 +3,15 @@
     <table>
         <thead>
             <th>id</th>
+            <th>Data do pedido</th>
             <th>status</th>
             <th>Forma de pagamento</th>
             <th>Produtos</th>
         </thead>
         <tbody>
             <tr *ngFor="let order of myOrders">
-                <td>{{ order.id }}</td>
+                <td><a href="cliente/pedidos/{{order.id}}">{{ order.id }}</a></td>
+                <td>{{ order.created|date:'dd/MM/YYYY' }}</td>
                 <td>{{ order.status }}</td>
                 <td *ngIf="order.paymentType == 1">Cartão de Crédito</td>
                 <td *ngIf="order.paymentType == 2">Boleto</td>

@@ -3,17 +3,18 @@ import { ProductCart, ProductDTO } from "./product";
 
 
 export interface Order {
-    userId?: string,
-    status?: number,
-    paymentType?: number,
-    number?: number,
-    cvv?: number,
-    cardName?: string,
-    expireAt?: string,
-    quota?: number,
-    address?: Address,
-    orderProducts?: ProductDTO[],
-    id?: string
+    userId?: string;
+    status?: number;
+    paymentType?: number;
+    number?: number;
+    cvv?: number;
+    cardName?: string;
+    expireAt?: string;
+    quota?: number;
+    address?: Address;
+    orderProducts?: ProductDTO[];
+    id?: string;
+    created?: string
 }
 
 export enum paymentType {
