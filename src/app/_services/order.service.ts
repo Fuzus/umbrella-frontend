@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Order, paymentType } from '../_models/order';
+import { Order, Status, paymentType } from '../_models/order';
 import { Address } from '../_models/address';
 import { User } from '../_models/user';
 import { ProductCart } from '../_models/product';
@@ -108,9 +108,16 @@ export class OrderService {
           },
           orderProducts: res.data.orderProducts,
           id: res.data.id,
-          created: res.data.created
+          created: res.data.created,
+          statusStr: Status[res.data.status]
         }
       })
+    )
+  }
+
+  updateOrderStatus(orderStatus:any) {
+    return this.http.post<ApiResponse<Order>>(`${environment.apiUrl}/UpdateOrderStatus`, orderStatus).pipe(
+      map(res => res.success)
     )
   }
 }

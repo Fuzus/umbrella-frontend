@@ -42,3 +42,17 @@ caption {
     font-weight: bolder;
     margin-bottom: 12px;
 }
+
+button {
+    background-color: var(--vermelho);
+    border: none;
+    color: white;
+    padding: 6px;
+    font-size: 22px;
+    margin-bottom: 10px;
+    transition: .3s all;
+}
+
+button:hover {
+    filter: brightness(0.9);
+}

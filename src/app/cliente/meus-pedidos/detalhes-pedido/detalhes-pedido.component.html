@@ -15,6 +15,7 @@
             <td *ngIf="order?.paymentType == 1">Cartão de Crédito ***{{ numeroCartao }}</td>
             <td *ngIf="order?.paymentType == 2">Boleto</td>
             <td>Numero de Parcelas: {{ order?.quota }}</td>
+            <td>status: {{ order?.statusStr }}</td>
         </tr>
     </table>
     <table>
@@ -25,4 +26,16 @@
             </td>
         </tr>
     </table>
+    <div *ngIf="isWorker">
+        <label for="status">Alterar status</label>
+        <select name="status" id="status" [(ngModel)]="status">
+            <option value="1">AGUARDANDO_PAGAMENTO</option>
+            <option value="2">PAGAMENTO_APROVADO</option>
+            <option value="3">PAGAMENTO_REJEITADO</option>
+            <option value="4">AGUARDANDO_ENTREGA</option>
+            <option value="5">EM_TRANSPORTE</option>
+            <option value="6">ENTREGUE</option>
+        </select>
+        <button (click)="changeStatus()">Alterar</button>
+    </div>
 </section>
