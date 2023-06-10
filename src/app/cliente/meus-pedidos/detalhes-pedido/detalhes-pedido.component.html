@@ -1,7 +1,7 @@
 <section>
     <h2 class="cart__title">Detalhes do Pedido </h2>
     <h3>Pedido #{{ order?.id }}</h3>
-    <table>
+    <table class="table-produtos">
         <caption>Produtos</caption>
         <tr *ngFor="let product of order?.orderProducts">
             <th>Produto: {{ product.product?.name }}</th>

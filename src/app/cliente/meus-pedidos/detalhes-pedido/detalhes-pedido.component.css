@@ -21,6 +21,19 @@ table {
     margin-bottom: 28px;
 }
 
+.table-produtos td{
+    border: 1px solid;;
+}
+
+.table-produtos th{
+    border: 1px solid;;
+}
+
+.table-produtos caption{
+    border: 1px solid;
+    margin-bottom: 0px;
+}
+
 th {
     white-space: nowrap
 }

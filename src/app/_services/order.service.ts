@@ -70,8 +70,22 @@ export class OrderService {
     )
   }
 
-  getOrderById(id: string) {
-    return this.http.get<ApiResponse<any>>(`${environment.apiUrl}/GetOrderById?orderId=${id}`).pipe(
+  getAllOrders(){
+    return this.http.get<ApiResponse<Order[]>>(`${environment.apiUrl}/GetAllOrders`).pipe(
+      map(res => res.data)
+    )
+  }
+
+  getOrderByIdWorker(id: string) {
+    return this.getOrderById(`${environment.apiUrl}/GetAdminOrderById?orderId=${id}`);
+  }
+
+  getOrderByIdClient(id:string) {
+    return this.getOrderById(`${environment.apiUrl}/GetOrderById?orderId=${id}`);
+  }
+
+  getOrderById(url: string) {
+    return this.http.get<ApiResponse<any>>(`${url}`).pipe(
       map(res => {
         return {
           userId: res.data.userId,
