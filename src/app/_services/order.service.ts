@@ -26,12 +26,8 @@ export class OrderService {
     }
   }
 
-  private setOrderAddress(address: Address) {
+  public setOrderAddress(address: Address) {
     this.order!.address = address;
-  }
-
-  setOrderUser(user: User) {
-    this.setOrderAddress(user.address![0]);
   }
 
   setPayment(type: paymentType, quota?: number, cardNumber?: number, cvv?: number, cardName?: string, expireAt?: string) {

@@ -50,19 +50,7 @@ export class EnderecoComponent {
       cidade: this.form.controls.city.value? this.form.controls.city.value : "",
       uf: this.form.controls.state.value? this.form.controls.state.value : ""
     }
-    this.accountService.update({
-      ...address,
-      nome: this.accountService.userValue?.nome!,
-      masculino: this.accountService.userValue?.masculino!,
-      dataNascimento: this.accountService.userValue?.dataNascimento!
-    }).subscribe(res => {
-      if(res.success) {
-        this.accountService.userValue?.address?.push(address)
-        alert("Endereço criado com sucesso")
-        this.location.back();
-      } else {
-        alert("Erro ao criar endereço")
-      }
-    })
+    this.addressService.addAddress(address);
+    this.location.back()
   }
 }

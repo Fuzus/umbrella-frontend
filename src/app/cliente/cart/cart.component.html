@@ -15,6 +15,16 @@
                         class="material-symbols-outlined">delete</span></button>
             </li>
         </ul>
+        <div class="header-cadastro">
+            <span>Endereço</span>
+            <a (click)="inserirEndereco()" class="material-symbols-outlined" id="new">add</a>
+        </div>
+        <table>
+            <tr *ngFor="let endereco of address">
+                <td><input type="radio" name="m-endereco-1" [checked]="endereco.principal" (click)="alterarEndereco(endereco)"></td>
+                <td><p>{{ endereco.rua }}, {{ endereco.numero }} <br> {{ endereco.bairro }} <br> {{ endereco.cep }}</p></td>
+            </tr>
+        </table>
         <h3>Frete</h3>
         <table>
             <tr>

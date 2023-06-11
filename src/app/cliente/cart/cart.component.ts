@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Address } from 'src/app/_models/address';
 import { ProductCart } from 'src/app/_models/product';
 import { AccountService } from 'src/app/_services/account.service';
+import { AddressService } from 'src/app/_services/address.service';
 import { CartService } from 'src/app/_services/cart.service';
 import { OrderService } from 'src/app/_services/order.service';
 
@@ -15,11 +17,14 @@ export class CartComponent {
   itensCarrinho: ProductCart[] = [];
   total: number = 0;
   valorFrete: number = 0;
+  address: Address[] = []
+  UsingAdrress: Address | undefined
 
   constructor(
     private carrinhoService: CartService,
     private orderService: OrderService,
     private accontService: AccountService,
+    private addressService: AddressService,
     private router: Router
   ) { }
 
@@ -30,6 +35,14 @@ export class CartComponent {
       itemCarrinho.cover = itemCarrinho.images.find(x => x.type == 1)
     }
     this.calcularTotal();
+    this.address = this.accontService.userValue?.address!;
+    if(this.address){
+      this.UsingAdrress = this.address[0];
+      const newAddress = this.addressService.addresses;
+      if(newAddress.length > 0){
+        this.address.push(... newAddress)
+      }
+    }
   }
 
   removerProdutoCarrinho(produtoId: string | undefined) {
@@ -43,7 +56,7 @@ export class CartComponent {
 
   comprar() {
     this.router.navigate(["cliente/pagamento"])
-    this.orderService.setOrderUser(this.accontService.userValue!);
+    this.orderService.setOrderAddress(this.UsingAdrress!);
     this.orderService.setOrderProduct(this.itensCarrinho);
   }
 
@@ -51,5 +64,13 @@ export class CartComponent {
     this.valorFrete = valor;
     sessionStorage.setItem("valorTotal", String(this.total));
     this.calcularTotal();
+  }
+
+  inserirEndereco(){
+    this.router.navigate(["endereco"])
+  }
+
+  alterarEndereco(address: Address){
+    this.UsingAdrress = address;
   }
 }
