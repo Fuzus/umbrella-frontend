@@ -53,6 +53,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    alert("Logout realizado com sucesso")
     this.accountService.logout();
   }
 

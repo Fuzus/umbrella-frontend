@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Image } from 'src/app/_models/image';
 import { Product, ProductCart } from 'src/app/_models/product';
 import { AccountService } from 'src/app/_services/account.service';
@@ -21,6 +21,7 @@ export class DetalhesProdutoComponent implements OnInit {
     private productService: ProductService,
     private route: ActivatedRoute,
     private cartService: CartService,
+    private router: Router,
     private accountService: AccountService
   ) { }
 
@@ -45,6 +46,7 @@ export class DetalhesProdutoComponent implements OnInit {
     }
     this.cartService.adicionarAoCarrinho(product);
     alert("Produto Adicionado ao Carrinho");
+    this.router.navigate(["cliente"])
   }
 
   changeImage(image: Image) {
