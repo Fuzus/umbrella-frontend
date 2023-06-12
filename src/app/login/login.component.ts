@@ -21,11 +21,7 @@ export class LoginComponent {
     this.authService.login(this.email, this.senha).subscribe(
       (res: boolean) => {
         if (res) {
-          if(this.authService.userValue?.roles?.includes("client")){
             this.router.navigate(['cliente']);
-          } else {
-            this.router.navigate(["backoffice"])
-          }
         } else {
           alert("Usuario ou senha incorretos");
         }

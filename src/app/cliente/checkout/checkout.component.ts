@@ -42,7 +42,7 @@ export class CheckoutComponent implements OnInit {
           alert(`Compra concluída com sucesso, numero do pedido ${res.data.id}`);
           this.router.navigate(["cliente"]);
         } else  {
-          alert("Ocorreu um erro ao realiar a compra")
+          alert("Ocorreu um erro ao realizar a compra")
         }
       }
     })

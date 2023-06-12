@@ -1,8 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AccountService } from '../_services/account.service';
-import { Router } from '@angular/router';
 import { User } from '../_models/user';
-import { BehaviorSubject } from 'rxjs';
+
 
 @Component({
   selector: 'app-header',
