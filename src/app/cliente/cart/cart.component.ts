@@ -30,18 +30,20 @@ export class CartComponent {
 
   ngOnInit(): void {
     this.itensCarrinho = this.carrinhoService.obtemCarrinho();
-    for(let itemCarrinho of this.itensCarrinho){
-      if(itemCarrinho.images)
-      itemCarrinho.cover = itemCarrinho.images.find(x => x.type == 1)
+    for (let itemCarrinho of this.itensCarrinho) {
+      if (itemCarrinho.images)
+        itemCarrinho.cover = itemCarrinho.images.find(x => x.type == 1)
     }
     this.calcularTotal();
     this.address = this.accontService.userValue?.address!;
-    if(this.address){
+    if (this.address) {
       this.UsingAdrress = this.address[0];
-      const newAddress = this.addressService.addresses;
-      if(newAddress.length > 0){
-        this.address.push(... newAddress)
-      }
+    } else {
+      this.address = []
+    }
+    const newAddress = this.addressService.addresses;
+    if (newAddress.length > 0) {
+      this.address.push(...newAddress)
     }
   }
 
@@ -55,6 +57,14 @@ export class CartComponent {
   }
 
   comprar() {
+    if(!this.UsingAdrress){
+      alert("É necessario ter um endereço de entrega selecionado");
+      return;
+    }
+    if(!this.valorFrete){
+      alert("É necessario escolher um tipo de frete");
+      return;
+    }
     this.router.navigate(["cliente/pagamento"])
     this.orderService.setOrderAddress(this.UsingAdrress!);
     this.orderService.setOrderProduct(this.itensCarrinho);
@@ -62,15 +72,15 @@ export class CartComponent {
 
   adicionaFrete(valor: number) {
     this.valorFrete = valor;
-    sessionStorage.setItem("valorTotal", String(this.total));
     this.calcularTotal();
+    sessionStorage.setItem("valorTotal", String(this.total));
   }
 
-  inserirEndereco(){
+  inserirEndereco() {
     this.router.navigate(["endereco"])
   }
 
-  alterarEndereco(address: Address){
+  alterarEndereco(address: Address) {
     this.UsingAdrress = address;
   }
 }

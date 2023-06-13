@@ -12,12 +12,12 @@ import { OrderService } from 'src/app/_services/order.service';
 export class PagamentoComponent implements OnInit{
 
   form = this.fb.group({
-    number: [""],
-    cvv: [""],
-    cardName: [""],
-    expireAt: [""],
-    quota: [""],
-    paymentType: [""]
+    number: ["", Validators.required],
+    cvv: ["", Validators.required],
+    cardName: ["", Validators.required],
+    expireAt: ["", Validators.required],
+    quota: ["", Validators.required],
+    paymentType: ["", Validators.required]
   })
 
   constructor(
@@ -43,7 +43,15 @@ export class PagamentoComponent implements OnInit{
   }
 
   continuar() {
+    if(this.form.errors){
+      alert("Todos os campos devem ser preenchidos para pagameto com cartão de credito");
+      return;
+    }
     const paymentType: paymentType = Number(this.form.controls.paymentType.value)
+    if(!paymentType) {
+      alert("É necessario adicionar um metodo de pagamento")
+      return;
+    }
     this.orderService.setPayment(
       paymentType,
       this.form.controls.quota.value ? Number(this.form.controls.quota.value) : 0,
