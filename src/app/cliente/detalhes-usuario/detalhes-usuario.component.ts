@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Address, enderecos } from 'src/app/_models/address';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
+import { AddressService } from 'src/app/_services/address.service';
 
 @Component({
   selector: 'app-detalhes-usuario',
@@ -15,6 +16,7 @@ export class DetalhesUsuarioComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
+    private addressService: AddressService,
     private router: Router
   ) { }
 
@@ -22,6 +24,7 @@ export class DetalhesUsuarioComponent implements OnInit {
     this.accountService.getUserData().subscribe(res => {
       this.user = res;
       this.address = res.address!;
+      this.address.push(... this.addressService.addresses)
     });
   }
 
@@ -34,6 +37,5 @@ export class DetalhesUsuarioComponent implements OnInit {
   }
 
   salvar() {
-
   }
 }
