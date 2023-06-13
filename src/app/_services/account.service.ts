@@ -120,6 +120,12 @@ export class AccountService {
         )
     }
 
+    userUpdate(params: any){
+        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/update`, params).pipe(
+            map(res => res)
+        )
+    }
+
     /**
      * @description Setta o grupo em que o usuario pertence
      */

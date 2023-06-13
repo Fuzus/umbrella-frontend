@@ -79,7 +79,7 @@ export class DetalhesUsuarioComponent implements OnInit {
 
     if (this.usuario?.id) {
       user.id = this.usuario.id;
-      this.accountService.update(user).subscribe(res => {
+      this.accountService.userUpdate(user).subscribe(res => {
         alert(res.message)
         if (res.success)
           this.router.navigate(["backoffice/usuarios"]);
