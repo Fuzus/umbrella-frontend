@@ -46,7 +46,7 @@ export class EnderecoComponent {
       complemento: "string",
       bairro: this.form.controls.district.value? this.form.controls.district.value : "",
       cep: this.form.controls.zipCode.value? this.form.controls.zipCode.value :  "",
-      principal: this.form.controls.default.value? this.form.controls.default.value == "true": false,
+      principal: false,
       cidade: this.form.controls.city.value? this.form.controls.city.value : "",
       uf: this.form.controls.state.value? this.form.controls.state.value : ""
     }
