@@ -121,7 +121,7 @@ export class AccountService {
     }
 
     userUpdate(params: any){
-        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/update`, params).pipe(
+        return this.http.post<ApiResponse<string>>(`${environment.apiUrl}/User/update`, params).pipe(
             map(res => res)
         )
     }

@@ -1,20 +1,20 @@
 <div class="popup">
     <h2>Dados do usuario</h2>
-    <form>
+    <form [formGroup]="form">
         <label for="m-name">Nome </label>
-        <input type="text" id="m-name" name="m-name" [value]="this.user?.nome">
+        <input type="text" id="m-name" name="m-name" formControlName="nome">
 
         <label for="m-dtNascimeto">Data de Nascimento </label>
-        <input type="date" [value]="this.user?.dataNascimento | date:'yyyy-MM-dd'">
+        <input type="date" formControlName="dataNascimento">
 
         <div class="radio-genero">
             <label for="m-input">Genero: </label>
             <input type="text" hidden>
 
-            <input type="radio" name="m-genero" id="masc" value="masculino" [checked]="this.user?.masculino">
+            <input type="radio" name="genero" id="genero" value="true" formControlName="genero">
             <label for="masc">Masculino</label>
 
-            <input type="radio" name="m-genero" id="fem" value="feminino" [checked]="!this.user?.masculino">
+            <input type="radio" name="genero" id="genero" value="false" formControlName="genero">
             <label for="fem">feminino</label>
         </div>
 
